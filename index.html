@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>autoresearch — OANDA Divergence Report</title>
+<style>
+    :root { --bg:#0e1116; --panel:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --green:#3fb950; --red:#f85149; --orange:#d29922; }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:var(--bg); color:var(--text); padding:24px; line-height:1.5; }
+    h1 { font-size:28px; margin-bottom:4px; }
+    h2 { font-size:20px; margin:32px 0 12px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+    h3 { font-size:15px; color:var(--muted); margin:16px 0 8px; text-transform:uppercase; letter-spacing:.05em; }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:16px; }
+    .card { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px; }
+    .stat-value { font-size:28px; font-weight:600; }
+    .stat-label { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.05em; margin-top:4px; }
+    .delta-pos { color:var(--green); font-size:12px; }
+    .delta-neg { color:var(--red); font-size:12px; }
+    .panel { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:16px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th { text-align:left; padding:8px 12px; color:var(--muted); font-weight:500; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; position:sticky; top:0; background:var(--panel); }
+    th:hover { color:var(--text); }
+    td { padding:8px 12px; border-bottom:1px solid #21262d; }
+    tr:hover td { background:rgba(255,255,255,0.03); }
+    .badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:500; }
+    .b-keep { background:rgba(63,185,80,0.15); color:var(--green); }
+    .b-discard { background:rgba(248,81,73,0.15); color:var(--red); }
+    .b-dom { background:rgba(210,153,34,0.15); color:var(--orange); }
+    .b-crash { background:rgba(248,81,73,0.15); color:var(--red); }
+    .mono { font-family:'SF Mono',Menlo,monospace; font-size:12px; }
+    .hash { color:var(--accent); text-decoration:none; }
+    .hash:hover { text-decoration:underline; }
+    code { font-family:'SF Mono',Menlo,monospace; background:#0d1117; padding:1px 6px; border-radius:3px; font-size:12px; }
+    .chart-container { background:#0d1117; border:1px solid var(--border); border-radius:6px; padding:12px; }
+    .param-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; }
+    .param { background:#0d1117; padding:8px 12px; border-radius:4px; font-size:12px; }
+    .param-name { color:var(--muted); }
+    .param-value { color:var(--accent); font-weight:500; }
+    .filter-bar { margin-bottom:12px; }
+    .filter-bar input, .filter-bar select { background:#0d1117; color:var(--text); border:1px solid var(--border); border-radius:4px; padding:4px 8px; font-size:13px; }
+    .toc { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:24px; }
+    .toc a { color:var(--accent); text-decoration:none; }
+    .toc li { margin: 4px 0; list-style:none; }
+    </style>
+</head>
+<body>
+<h1>📊 autoresearch — OANDA Divergence Strategy</h1>
+<p class="subtitle">Generated 2026-06-11 13:50:57 · Branch <code>autoresearch/jun11-divergence</code> · 110 experiments, 56 kept</p>
+
+<div class="toc">
+<h3 style="margin-top:0">📑 Contents</h3>
+<ul>
+<li><a href="#summary">Summary & Best Result</a></li>
+<li><a href="#params">Current Strategy Parameters</a></li>
+<li><a href="#charts">Charts: Sharpe vs Max DD, Timeline</a></li>
+<li><a href="#equity">Equity Curves (top configs)</a></li>
+<li><a href="#pareto">Pareto Frontier (non-dominated keeps)</a></li>
+<li><a href="#results">All Experiments</a></li>
+<li><a href="#git">Git Log</a></li>
+<li><a href="#files">File Layout</a></li>
+</ul>
+</div>
+
+<h2 id="summary">Summary</h2>
+<div class="grid">
+  <div class="card">
+    <div class="stat-value">110</div>
+    <div class="stat-label">Total experiments</div>
+  </div>
+  <div class="card">
+    <div class="stat-value" style="color:var(--green)">56</div>
+    <div class="stat-label">Kept</div>
+  </div>
+  <div class="card">
+    <div class="stat-value" style="color:var(--red)">54</div>
+    <div class="stat-label">Discarded</div>
+  </div>
+  <div class="card">
+    <div class="stat-value" style="color:var(--orange)">0</div>
+    <div class="stat-label">Crashes</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="stat-label">🏆 Best Sharpe</div>
+    <div class="stat-value" style="color:var(--accent)">5.243</div>
+    <div class="stat-label" style="color:var(--muted);margin-top:6px">57c9532 — m_wider_pivot: pivot_lookback=6</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">🛡️ Lowest Max DD</div>
+    <div class="stat-value" style="color:var(--green)">11.0%</div>
+    <div class="stat-label" style="color:var(--muted);margin-top:6px">c1799be — Sharpe 3.941</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">📏 Spec Constraints</div>
+    <div class="stat-label" style="font-family:monospace;font-size:12px;margin-top:6px">
+      max_dd &lt; 25% · WR &gt; 25% · n &gt; 50 · elapsed &lt; 180s
+    </div>
+  </div>
+  <div class="card">
+    <div class="stat-label">⏱ Loop uptime</div>
+    <div class="stat-value">107</div>
+    <div class="stat-label">iterations logged</div>
+  </div>
+</div>
+
+<h2 id="params">Current Strategy Parameters</h2>
+<div class="panel">
+<p>Snapshot of <code>strategy.py</code> as of report generation. Each iteration the loop mutates ONE of these values, runs the backtest, and reverts if the new config is dominated.</p>
+<div class="param-grid" style="margin-top:12px">
+  <div class="param"><span class="param-name">pivot_lookback</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">min_zone_touches</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">zone_atr_mult</span> <span class="param-value">0.5</span></div><div class="param"><span class="param-name">rsi_period</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">macd_fast</span> <span class="param-value">12</span></div><div class="param"><span class="param-name">macd_slow</span> <span class="param-value">26</span></div><div class="param"><span class="param-name">macd_signal</span> <span class="param-value">9</span></div><div class="param"><span class="param-name">div_lookback</span> <span class="param-value">3</span></div><div class="param"><span class="param-name">div_atr_dist_mult</span> <span class="param-value">0.0</span></div><div class="param"><span class="param-name">h4_ema_period</span> <span class="param-value">60</span></div><div class="param"><span class="param-name">use_trend_filter</span> <span class="param-value">True</span></div><div class="param"><span class="param-name">entry_atr_mult</span> <span class="param-value">1.75</span></div><div class="param"><span class="param-name">sl_atr_mult</span> <span class="param-value">3.5</span></div><div class="param"><span class="param-name">tp_rr_ratio</span> <span class="param-value">2.5</span></div><div class="param"><span class="param-name">max_hold_bars</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">min_atr_pips</span> <span class="param-value">7</span></div><div class="param"><span class="param-name">spread_atr_max</span> <span class="param-value">0.15</span></div><div class="param"><span class="param-name">max_open_per_pair</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">signal_cooldown_bars</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">use_trail</span> <span class="param-value">False</span></div><div class="param"><span class="param-name">trail_trigger_atr</span> <span class="param-value">1.5</span></div><div class="param"><span class="param-name">trail_distance_atr</span> <span class="param-value">1.5</span></div>
+</div>
+</div>
+
+<h2 id="charts">Charts</h2>
+<div class="panel">
+<h3>Sharpe vs Max Drawdown (all keeps; blue ring = Pareto-optimal)</h3>
+<div class="chart-container"><svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:monospace">
+<line x1="50" y1="450" x2="850" y2="450" stroke="#30363d"/>
+<line x1="50" y1="50" x2="50" y2="450" stroke="#30363d"/>
+<line x1="50.0" y1="50" x2="50.0" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="50.0" y="465" fill="#8b949e" font-size="11" text-anchor="middle">0%</text>
+<line x1="201.5151515151515" y1="50" x2="201.5151515151515" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="201.5151515151515" y="465" fill="#8b949e" font-size="11" text-anchor="middle">5%</text>
+<line x1="353.030303030303" y1="50" x2="353.030303030303" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="353.030303030303" y="465" fill="#8b949e" font-size="11" text-anchor="middle">10%</text>
+<line x1="504.5454545454545" y1="50" x2="504.5454545454545" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="504.5454545454545" y="465" fill="#8b949e" font-size="11" text-anchor="middle">15%</text>
+<line x1="656.060606060606" y1="50" x2="656.060606060606" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="656.060606060606" y="465" fill="#8b949e" font-size="11" text-anchor="middle">20%</text>
+<line x1="807.5757575757575" y1="50" x2="807.5757575757575" y2="450" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="807.5757575757575" y="465" fill="#8b949e" font-size="11" text-anchor="middle">25%</text>
+<line x1="50" y1="450.0" x2="850" y2="450.0" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="454.0" fill="#8b949e" font-size="11" text-anchor="end">0</text>
+<line x1="50" y1="380.6434553430548" x2="850" y2="380.6434553430548" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="384.6434553430548" fill="#8b949e" font-size="11" text-anchor="end">1</text>
+<line x1="50" y1="311.28691068610965" x2="850" y2="311.28691068610965" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="315.28691068610965" fill="#8b949e" font-size="11" text-anchor="end">2</text>
+<line x1="50" y1="241.93036602916447" x2="850" y2="241.93036602916447" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="245.93036602916447" fill="#8b949e" font-size="11" text-anchor="end">3</text>
+<line x1="50" y1="172.57382137221924" x2="850" y2="172.57382137221924" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="176.57382137221924" fill="#8b949e" font-size="11" text-anchor="end">4</text>
+<line x1="50" y1="103.21727671527412" x2="850" y2="103.21727671527412" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="107.21727671527412" fill="#8b949e" font-size="11" text-anchor="end">5</text>
+<text x="450.0" y="490" fill="#e6edf3" font-size="13" text-anchor="middle">Max Drawdown (%)</text>
+<text transform="rotate(-90,15,250.0)" x="15" y="250.0" fill="#e6edf3" font-size="13" text-anchor="middle">Sharpe Ratio</text>
+<path d="M383.3,176.7 L383.3,176.7 L383.3,176.7 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L422.7,162.5 L425.8,143.7 L425.8,143.7 L553.0,86.4 L553.0,86.4" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.6"/>
+<circle cx="777.3" cy="217.4" r="5" fill="#3fb950" opacity="0.7"><title>v1: added per-pair signal cooldown (5 bars), passes all constraints — DD=24.0% Sharpe=3.35 WR=55% n=242</title></circle>
+<circle cx="592.4" cy="223.2" r="5" fill="#3fb950" opacity="0.7"><title>m_zone_wider: zone_atr_mult=0.75 — DD=17.9% Sharpe=3.27 WR=53% n=243</title></circle>
+<circle cx="543.9" cy="221.3" r="5" fill="#3fb950" opacity="0.7"><title>m_fewer_touches: min_zone_touches=1 — DD=16.3% Sharpe=3.30 WR=53% n=245</title></circle>
+<circle cx="510.6" cy="228.6" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_sl: sl_atr_mult=3.0 — DD=15.2% Sharpe=3.19 WR=55% n=245</title></circle>
+<circle cx="534.8" cy="215.0" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_rr: tp_rr_ratio=2.5 — DD=16.0% Sharpe=3.39 WR=56% n=245</title></circle>
+<circle cx="510.6" cy="228.6" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_rr: tp_rr_ratio=3.0 — DD=15.2% Sharpe=3.19 WR=55% n=245</title></circle>
+<circle cx="753.0" cy="172.2" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_pivot: pivot_lookback=6 — DD=23.2% Sharpe=4.01 WR=60% n=195</title></circle>
+<circle cx="510.6" cy="228.6" r="5" fill="#3fb950" opacity="0.7"><title>m_tighter_pivot: pivot_lookback=5 — DD=15.2% Sharpe=3.19 WR=55% n=245</title></circle>
+<circle cx="510.6" cy="203.2" r="5" fill="#3fb950" opacity="0.7"><title>m_slower_rsi: rsi_period=16 — DD=15.2% Sharpe=3.56 WR=55% n=243</title></circle>
+<circle cx="510.6" cy="203.2" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_slower: h4_ema_period=60 — DD=15.2% Sharpe=3.56 WR=55% n=243</title></circle>
+<circle cx="431.8" cy="236.5" r="5" fill="#3fb950" opacity="0.7"><title>m_farther_entry: entry_atr_mult=1.75 — DD=12.6% Sharpe=3.08 WR=53% n=244</title></circle>
+<circle cx="431.8" cy="236.5" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_atr_floor: min_atr_pips=3 — DD=12.6% Sharpe=3.08 WR=53% n=244</title></circle>
+<circle cx="431.8" cy="236.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_atr_floor: min_atr_pips=5 — DD=12.6% Sharpe=3.08 WR=53% n=244</title></circle>
+<circle cx="425.8" cy="228.8" r="5" fill="#3fb950" opacity="0.7"><title>m_shorter_hold: max_hold_bars=25 — DD=12.4% Sharpe=3.19 WR=54% n=244</title></circle>
+<circle cx="428.8" cy="198.2" r="5" fill="#3fb950" opacity="0.7"><title>m_zone_tighter: zone_atr_mult=0.5 — DD=12.5% Sharpe=3.63 WR=55% n=242</title></circle>
+<circle cx="425.8" cy="228.8" r="5" fill="#3fb950" opacity="0.7"><title>m_zone_wider: zone_atr_mult=0.75 — DD=12.4% Sharpe=3.19 WR=54% n=244</title></circle>
+<circle cx="425.8" cy="226.3" r="5" fill="#3fb950" opacity="0.7"><title>m_more_touches: min_zone_touches=2 — DD=12.4% Sharpe=3.23 WR=54% n=242</title></circle>
+<circle cx="498.5" cy="155.0" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_pivot: pivot_lookback=6 — DD=14.8% Sharpe=4.25 WR=58% n=194</title></circle>
+<circle cx="425.8" cy="226.3" r="5" fill="#3fb950" opacity="0.7"><title>m_tighter_pivot: pivot_lookback=5 — DD=12.4% Sharpe=3.23 WR=54% n=242</title></circle>
+<circle cx="425.8" cy="224.8" r="5" fill="#3fb950" opacity="0.7"><title>m_slower_rsi: rsi_period=18 — DD=12.4% Sharpe=3.25 WR=54% n=243</title></circle>
+<circle cx="425.8" cy="224.8" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_faster: h4_ema_period=50 — DD=12.4% Sharpe=3.25 WR=54% n=243</title></circle>
+<circle cx="425.8" cy="224.8" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_slower: h4_ema_period=60 — DD=12.4% Sharpe=3.25 WR=54% n=243</title></circle>
+<circle cx="425.8" cy="224.8" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_atr_floor: min_atr_pips=3 — DD=12.4% Sharpe=3.25 WR=54% n=243</title></circle>
+<circle cx="425.8" cy="224.8" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_atr_floor: min_atr_pips=5 — DD=12.4% Sharpe=3.25 WR=54% n=243</title></circle>
+<circle cx="422.7" cy="224.0" r="5" fill="#3fb950" opacity="0.7"><title>m_shorter_hold: max_hold_bars=20 — DD=12.3% Sharpe=3.26 WR=55% n=243</title></circle>
+<circle cx="422.7" cy="204.6" r="5" fill="#3fb950" opacity="0.7"><title>m_zone_tighter: zone_atr_mult=0.5 — DD=12.3% Sharpe=3.54 WR=56% n=241</title></circle>
+<circle cx="422.7" cy="187.2" r="5" fill="#3fb950" opacity="0.7"><title>m_fewer_touches: min_zone_touches=1 — DD=12.3% Sharpe=3.79 WR=56% n=243</title></circle>
+<circle cx="422.7" cy="172.7" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_rr: tp_rr_ratio=2.5 — DD=12.3% Sharpe=4.00 WR=57% n=243</title></circle>
+<circle cx="553.0" cy="97.5" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_pivot: pivot_lookback=6 — DD=16.6% Sharpe=5.08 WR=61% n=194</title></circle>
+<circle cx="422.7" cy="172.7" r="5" fill="#3fb950" opacity="0.7"><title>m_tighter_pivot: pivot_lookback=5 — DD=12.3% Sharpe=4.00 WR=57% n=243</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_slower_rsi: rsi_period=20 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_atr_floor: min_atr_pips=3 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_atr_floor: min_atr_pips=5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="383.3" cy="176.7" r="5" fill="#3fb950" opacity="0.7"><title>m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94 WR=60% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="425.8" cy="143.7" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_rr: tp_rr_ratio=2.0 — DD=12.4% Sharpe=4.42 WR=59% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_rr: tp_rr_ratio=2.5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="553.0" cy="86.4" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_pivot: pivot_lookback=6 — DD=16.6% Sharpe=5.24 WR=62% n=198</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_tighter_pivot: pivot_lookback=5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_atr_floor: min_atr_pips=3 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_atr_floor: min_atr_pips=5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="383.3" cy="176.7" r="5" fill="#3fb950" opacity="0.7"><title>m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94 WR=60% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="425.8" cy="143.7" r="5" fill="#3fb950" opacity="0.7"><title>m_lower_rr: tp_rr_ratio=2.0 — DD=12.4% Sharpe=4.42 WR=59% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_rr: tp_rr_ratio=2.5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="553.0" cy="86.4" r="5" fill="#3fb950" opacity="0.7"><title>m_wider_pivot: pivot_lookback=6 — DD=16.6% Sharpe=5.24 WR=62% n=198</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_tighter_pivot: pivot_lookback=5 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_higher_atr_floor: min_atr_pips=7 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="383.3" cy="176.7" r="5" fill="#3fb950" opacity="0.7"><title>m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94 WR=60% n=247</title></circle>
+<circle cx="422.7" cy="162.5" r="5" fill="#3fb950" opacity="0.7"><title>m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14 WR=57% n=247</title></circle>
+<circle cx="553.0" cy="86.4" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_wider_pivot: pivot_lookback=6 — DD=16.6% Sharpe=5.24</title></circle>
+<circle cx="553.0" cy="86.4" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_wider_pivot: pivot_lookback=6 — DD=16.6% Sharpe=5.24</title></circle>
+<circle cx="425.8" cy="143.7" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_lower_rr: tp_rr_ratio=2.0 — DD=12.4% Sharpe=4.42</title></circle>
+<circle cx="425.8" cy="143.7" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_lower_rr: tp_rr_ratio=2.0 — DD=12.4% Sharpe=4.42</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_slower_rsi: rsi_period=20 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_lower_atr_floor: min_atr_pips=3 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_higher_atr_floor: min_atr_pips=5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_higher_rr: tp_rr_ratio=2.5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_tighter_pivot: pivot_lookback=5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_lower_atr_floor: min_atr_pips=3 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_higher_atr_floor: min_atr_pips=5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_higher_rr: tp_rr_ratio=2.5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_tighter_pivot: pivot_lookback=5 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_faster: h4_ema_period=50 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_trend_slower: h4_ema_period=60 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_higher_atr_floor: min_atr_pips=7 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="422.7" cy="162.5" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_longer_hold: max_hold_bars=20 — DD=12.3% Sharpe=4.14</title></circle>
+<circle cx="383.3" cy="176.7" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94</title></circle>
+<circle cx="383.3" cy="176.7" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94</title></circle>
+<circle cx="383.3" cy="176.7" r="7" fill="none" stroke="#58a6ff" stroke-width="2"><title>PARETO: m_shorter_hold: max_hold_bars=15 — DD=11.0% Sharpe=3.94</title></circle>
+<line x1="807.5757575757575" y1="50" x2="807.5757575757575" y2="450" stroke="#f85149" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+<text x="812.5757575757575" y="65" fill="#f85149" font-size="10">max_dd &lt; 25% constraint</text>
+</svg></div>
+<p style="color:var(--muted);margin-top:8px;font-size:12px">Each green dot is a kept experiment. Blue rings = Pareto frontier (no other kept result has both higher Sharpe AND lower max DD). Red dashed line marks the 25% max-DD constraint.</p>
+</div>
+<div class="panel">
+<h3>Sharpe over Iterations (green=keep, orange=dominated, red=skip)</h3>
+<div class="chart-container"><svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:monospace">
+<line x1="50" y1="250" x2="850" y2="250" stroke="#30363d"/>
+<line x1="50" y1="50" x2="50" y2="250" stroke="#30363d"/>
+<line x1="50" y1="250.0" x2="850" y2="250.0" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="254.0" fill="#8b949e" font-size="11" text-anchor="end">0</text>
+<line x1="50" y1="215.3217276715274" x2="850" y2="215.3217276715274" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="219.3217276715274" fill="#8b949e" font-size="11" text-anchor="end">1</text>
+<line x1="50" y1="180.64345534305482" x2="850" y2="180.64345534305482" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="184.64345534305482" fill="#8b949e" font-size="11" text-anchor="end">2</text>
+<line x1="50" y1="145.96518301458224" x2="850" y2="145.96518301458224" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="149.96518301458224" fill="#8b949e" font-size="11" text-anchor="end">3</text>
+<line x1="50" y1="111.28691068610962" x2="850" y2="111.28691068610962" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="115.28691068610962" fill="#8b949e" font-size="11" text-anchor="end">4</text>
+<line x1="50" y1="76.60863835763706" x2="850" y2="76.60863835763706" stroke="#21262d" stroke-dasharray="2,4"/>
+<text x="42" y="80.60863835763706" fill="#8b949e" font-size="11" text-anchor="end">5</text>
+<text x="450.0" y="290" fill="#e6edf3" font-size="13" text-anchor="middle">Iteration</text>
+<text transform="rotate(-90,15,150.0)" x="15" y="150.0" fill="#e6edf3" font-size="13" text-anchor="middle">Sharpe</text>
+<circle cx="57.3" cy="147.0" r="3" fill="#d29922"><title>iter 1: Sharpe=2.97, DD=24.9%</title></circle>
+<line x1="57.3" y1="147.0" x2="64.5" y2="136.6" stroke="#3fb950" opacity="0.4"/>
+<circle cx="64.5" cy="136.6" r="3" fill="#3fb950"><title>iter 2: Sharpe=3.27, DD=17.9%</title></circle>
+<line x1="64.5" y1="136.6" x2="71.8" y2="143.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="71.8" cy="143.1" r="3" fill="#d29922"><title>iter 3: Sharpe=3.08, DD=18.1%</title></circle>
+<line x1="71.8" y1="143.1" x2="79.1" y2="135.6" stroke="#3fb950" opacity="0.4"/>
+<circle cx="79.1" cy="135.6" r="3" fill="#3fb950"><title>iter 4: Sharpe=3.30, DD=16.3%</title></circle>
+<line x1="79.1" y1="135.6" x2="86.4" y2="196.9" stroke="#d29922" opacity="0.4"/>
+<circle cx="86.4" cy="196.9" r="3" fill="#d29922"><title>iter 5: Sharpe=1.53, DD=23.1%</title></circle>
+<line x1="86.4" y1="196.9" x2="93.6" y2="139.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="93.6" cy="139.3" r="3" fill="#3fb950"><title>iter 6: Sharpe=3.19, DD=15.2%</title></circle>
+<line x1="93.6" y1="139.3" x2="100.9" y2="132.5" stroke="#3fb950" opacity="0.4"/>
+<circle cx="100.9" cy="132.5" r="3" fill="#3fb950"><title>iter 7: Sharpe=3.39, DD=16.0%</title></circle>
+<line x1="100.9" y1="132.5" x2="108.2" y2="139.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="108.2" cy="139.3" r="3" fill="#3fb950"><title>iter 8: Sharpe=3.19, DD=15.2%</title></circle>
+<line x1="108.2" y1="139.3" x2="115.5" y2="111.1" stroke="#3fb950" opacity="0.4"/>
+<circle cx="115.5" cy="111.1" r="3" fill="#3fb950"><title>iter 9: Sharpe=4.01, DD=23.2%</title></circle>
+<line x1="115.5" y1="111.1" x2="122.7" y2="139.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="122.7" cy="139.3" r="3" fill="#3fb950"><title>iter 10: Sharpe=3.19, DD=15.2%</title></circle>
+<line x1="122.7" y1="139.3" x2="130.0" y2="126.6" stroke="#3fb950" opacity="0.4"/>
+<circle cx="130.0" cy="126.6" r="3" fill="#3fb950"><title>iter 11: Sharpe=3.56, DD=15.2%</title></circle>
+<line x1="130.0" y1="126.6" x2="137.3" y2="139.3" stroke="#d29922" opacity="0.4"/>
+<circle cx="137.3" cy="139.3" r="3" fill="#d29922"><title>iter 12: Sharpe=3.19, DD=15.2%</title></circle>
+<line x1="137.3" y1="139.3" x2="144.5" y2="166.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="144.5" cy="166.1" r="3" fill="#d29922"><title>iter 13: Sharpe=2.42, DD=17.7%</title></circle>
+<line x1="144.5" y1="166.1" x2="151.8" y2="126.9" stroke="#d29922" opacity="0.4"/>
+<circle cx="151.8" cy="126.9" r="3" fill="#d29922"><title>iter 14: Sharpe=3.55, DD=15.2%</title></circle>
+<line x1="151.8" y1="126.9" x2="159.1" y2="126.6" stroke="#3fb950" opacity="0.4"/>
+<circle cx="159.1" cy="126.6" r="3" fill="#3fb950"><title>iter 15: Sharpe=3.56, DD=15.2%</title></circle>
+<line x1="159.1" y1="126.6" x2="166.4" y2="131.2" stroke="#d29922" opacity="0.4"/>
+<circle cx="166.4" cy="131.2" r="3" fill="#d29922"><title>iter 16: Sharpe=3.42, DD=17.3%</title></circle>
+<line x1="166.4" y1="131.2" x2="173.6" y2="143.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="173.6" cy="143.3" r="3" fill="#3fb950"><title>iter 17: Sharpe=3.08, DD=12.6%</title></circle>
+<line x1="173.6" y1="143.3" x2="180.9" y2="143.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="180.9" cy="143.3" r="3" fill="#3fb950"><title>iter 18: Sharpe=3.08, DD=12.6%</title></circle>
+<line x1="180.9" y1="143.3" x2="188.2" y2="143.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="188.2" cy="143.3" r="3" fill="#3fb950"><title>iter 19: Sharpe=3.08, DD=12.6%</title></circle>
+<line x1="188.2" y1="143.3" x2="195.5" y2="139.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="195.5" cy="139.4" r="3" fill="#3fb950"><title>iter 20: Sharpe=3.19, DD=12.4%</title></circle>
+<line x1="195.5" y1="139.4" x2="202.7" y2="143.3" stroke="#d29922" opacity="0.4"/>
+<circle cx="202.7" cy="143.3" r="3" fill="#d29922"><title>iter 21: Sharpe=3.08, DD=12.6%</title></circle>
+<line x1="202.7" y1="143.3" x2="210.0" y2="124.1" stroke="#3fb950" opacity="0.4"/>
+<circle cx="210.0" cy="124.1" r="3" fill="#3fb950"><title>iter 22: Sharpe=3.63, DD=12.5%</title></circle>
+<line x1="210.0" y1="124.1" x2="217.3" y2="139.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="217.3" cy="139.4" r="3" fill="#3fb950"><title>iter 23: Sharpe=3.19, DD=12.4%</title></circle>
+<line x1="217.3" y1="139.4" x2="224.5" y2="138.1" stroke="#3fb950" opacity="0.4"/>
+<circle cx="224.5" cy="138.1" r="3" fill="#3fb950"><title>iter 24: Sharpe=3.23, DD=12.4%</title></circle>
+<line x1="224.5" y1="138.1" x2="231.8" y2="139.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="231.8" cy="139.4" r="3" fill="#d29922"><title>iter 25: Sharpe=3.19, DD=12.4%</title></circle>
+<line x1="231.8" y1="139.4" x2="239.1" y2="156.0" stroke="#d29922" opacity="0.4"/>
+<circle cx="239.1" cy="156.0" r="3" fill="#d29922"><title>iter 26: Sharpe=2.71, DD=17.2%</title></circle>
+<line x1="239.1" y1="156.0" x2="246.4" y2="162.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="246.4" cy="162.1" r="3" fill="#d29922"><title>iter 27: Sharpe=2.54, DD=17.6%</title></circle>
+<line x1="246.4" y1="162.1" x2="253.6" y2="133.9" stroke="#d29922" opacity="0.4"/>
+<circle cx="253.6" cy="133.9" r="3" fill="#d29922"><title>iter 28: Sharpe=3.35, DD=12.5%</title></circle>
+<line x1="253.6" y1="133.9" x2="260.9" y2="144.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="260.9" cy="144.1" r="3" fill="#d29922"><title>iter 29: Sharpe=3.06, DD=13.0%</title></circle>
+<line x1="260.9" y1="144.1" x2="268.2" y2="102.5" stroke="#3fb950" opacity="0.4"/>
+<circle cx="268.2" cy="102.5" r="3" fill="#3fb950"><title>iter 30: Sharpe=4.25, DD=14.8%</title></circle>
+<line x1="268.2" y1="102.5" x2="275.5" y2="138.1" stroke="#3fb950" opacity="0.4"/>
+<circle cx="275.5" cy="138.1" r="3" fill="#3fb950"><title>iter 31: Sharpe=3.23, DD=12.4%</title></circle>
+<line x1="275.5" y1="138.1" x2="282.7" y2="137.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="282.7" cy="137.4" r="3" fill="#3fb950"><title>iter 32: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="282.7" y1="137.4" x2="290.0" y2="138.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="290.0" cy="138.1" r="3" fill="#d29922"><title>iter 33: Sharpe=3.23, DD=12.4%</title></circle>
+<line x1="290.0" y1="138.1" x2="297.3" y2="167.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="297.3" cy="167.6" r="3" fill="#d29922"><title>iter 34: Sharpe=2.38, DD=16.2%</title></circle>
+<line x1="297.3" y1="167.6" x2="304.5" y2="137.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="304.5" cy="137.4" r="3" fill="#3fb950"><title>iter 35: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="304.5" y1="137.4" x2="311.8" y2="137.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="311.8" cy="137.4" r="3" fill="#3fb950"><title>iter 36: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="311.8" y1="137.4" x2="319.1" y2="125.7" stroke="#d29922" opacity="0.4"/>
+<circle cx="319.1" cy="125.7" r="3" fill="#d29922"><title>iter 37: Sharpe=3.58, DD=12.5%</title></circle>
+<line x1="319.1" y1="125.7" x2="326.4" y2="142.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="326.4" cy="142.6" r="3" fill="#d29922"><title>iter 38: Sharpe=3.10, DD=14.8%</title></circle>
+<line x1="326.4" y1="142.6" x2="333.6" y2="137.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="333.6" cy="137.4" r="3" fill="#3fb950"><title>iter 39: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="333.6" y1="137.4" x2="340.9" y2="137.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="340.9" cy="137.4" r="3" fill="#3fb950"><title>iter 40: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="340.9" y1="137.4" x2="348.2" y2="137.0" stroke="#3fb950" opacity="0.4"/>
+<circle cx="348.2" cy="137.0" r="3" fill="#3fb950"><title>iter 41: Sharpe=3.26, DD=12.3%</title></circle>
+<line x1="348.2" y1="137.0" x2="355.5" y2="137.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="355.5" cy="137.4" r="3" fill="#d29922"><title>iter 42: Sharpe=3.25, DD=12.4%</title></circle>
+<line x1="355.5" y1="137.4" x2="362.7" y2="127.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="362.7" cy="127.3" r="3" fill="#3fb950"><title>iter 43: Sharpe=3.54, DD=12.3%</title></circle>
+<line x1="362.7" y1="127.3" x2="370.0" y2="137.0" stroke="#d29922" opacity="0.4"/>
+<circle cx="370.0" cy="137.0" r="3" fill="#d29922"><title>iter 44: Sharpe=3.26, DD=12.3%</title></circle>
+<line x1="370.0" y1="137.0" x2="377.3" y2="134.0" stroke="#d29922" opacity="0.4"/>
+<circle cx="377.3" cy="134.0" r="3" fill="#d29922"><title>iter 45: Sharpe=3.35, DD=12.3%</title></circle>
+<line x1="377.3" y1="134.0" x2="384.5" y2="118.6" stroke="#3fb950" opacity="0.4"/>
+<circle cx="384.5" cy="118.6" r="3" fill="#3fb950"><title>iter 46: Sharpe=3.79, DD=12.3%</title></circle>
+<line x1="384.5" y1="118.6" x2="391.8" y2="126.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="391.8" cy="126.1" r="3" fill="#d29922"><title>iter 47: Sharpe=3.57, DD=14.4%</title></circle>
+<line x1="391.8" y1="126.1" x2="399.1" y2="132.8" stroke="#d29922" opacity="0.4"/>
+<circle cx="399.1" cy="132.8" r="3" fill="#d29922"><title>iter 48: Sharpe=3.38, DD=16.0%</title></circle>
+<line x1="399.1" y1="132.8" x2="406.4" y2="111.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="406.4" cy="111.4" r="3" fill="#3fb950"><title>iter 49: Sharpe=4.00, DD=12.3%</title></circle>
+<line x1="406.4" y1="111.4" x2="413.6" y2="118.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="413.6" cy="118.6" r="3" fill="#d29922"><title>iter 50: Sharpe=3.79, DD=12.3%</title></circle>
+<line x1="413.6" y1="118.6" x2="420.9" y2="73.8" stroke="#3fb950" opacity="0.4"/>
+<circle cx="420.9" cy="73.8" r="3" fill="#3fb950"><title>iter 51: Sharpe=5.08, DD=16.6%</title></circle>
+<line x1="420.9" y1="73.8" x2="428.2" y2="111.4" stroke="#3fb950" opacity="0.4"/>
+<circle cx="428.2" cy="111.4" r="3" fill="#3fb950"><title>iter 52: Sharpe=4.00, DD=12.3%</title></circle>
+<line x1="428.2" y1="111.4" x2="435.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="435.5" cy="106.3" r="3" fill="#3fb950"><title>iter 53: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="435.5" y1="106.3" x2="442.7" y2="111.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="442.7" cy="111.4" r="3" fill="#d29922"><title>iter 54: Sharpe=4.00, DD=12.3%</title></circle>
+<line x1="442.7" y1="111.4" x2="450.0" y2="142.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="450.0" cy="142.4" r="3" fill="#d29922"><title>iter 55: Sharpe=3.10, DD=13.9%</title></circle>
+<line x1="450.0" y1="142.4" x2="457.3" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="457.3" cy="106.3" r="3" fill="#3fb950"><title>iter 56: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="457.3" y1="106.3" x2="464.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="464.5" cy="106.3" r="3" fill="#3fb950"><title>iter 57: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="464.5" y1="106.3" x2="471.8" y2="112.8" stroke="#d29922" opacity="0.4"/>
+<circle cx="471.8" cy="112.8" r="3" fill="#d29922"><title>iter 58: Sharpe=3.96, DD=17.5%</title></circle>
+<line x1="471.8" y1="112.8" x2="479.1" y2="113.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="479.1" cy="113.6" r="3" fill="#d29922"><title>iter 59: Sharpe=3.93, DD=12.3%</title></circle>
+<line x1="479.1" y1="113.6" x2="486.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="486.4" cy="106.3" r="3" fill="#3fb950"><title>iter 60: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="486.4" y1="106.3" x2="493.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="493.6" cy="106.3" r="3" fill="#3fb950"><title>iter 61: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="493.6" y1="106.3" x2="500.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="500.9" cy="113.3" r="3" fill="#3fb950"><title>iter 62: Sharpe=3.94, DD=11.0%</title></circle>
+<line x1="500.9" y1="113.3" x2="508.2" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="508.2" cy="106.3" r="3" fill="#3fb950"><title>iter 63: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="508.2" y1="106.3" x2="515.5" y2="116.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="515.5" cy="116.1" r="3" fill="#d29922"><title>iter 64: Sharpe=3.86, DD=17.4%</title></circle>
+<line x1="515.5" y1="116.1" x2="522.7" y2="116.7" stroke="#d29922" opacity="0.4"/>
+<circle cx="522.7" cy="116.7" r="3" fill="#d29922"><title>iter 65: Sharpe=3.84, DD=12.3%</title></circle>
+<line x1="522.7" y1="116.7" x2="530.0" y2="114.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="530.0" cy="114.4" r="3" fill="#d29922"><title>iter 66: Sharpe=3.91, DD=12.3%</title></circle>
+<line x1="530.0" y1="114.4" x2="544.5" y2="139.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="544.5" cy="139.1" r="3" fill="#d29922"><title>iter 68: Sharpe=3.20, DD=14.4%</title></circle>
+<line x1="544.5" y1="139.1" x2="551.8" y2="128.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="551.8" cy="128.4" r="3" fill="#d29922"><title>iter 69: Sharpe=3.51, DD=16.4%</title></circle>
+<line x1="551.8" y1="128.4" x2="559.1" y2="96.9" stroke="#3fb950" opacity="0.4"/>
+<circle cx="559.1" cy="96.9" r="3" fill="#3fb950"><title>iter 70: Sharpe=4.42, DD=12.4%</title></circle>
+<line x1="559.1" y1="96.9" x2="566.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="566.4" cy="106.3" r="3" fill="#3fb950"><title>iter 71: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="566.4" y1="106.3" x2="573.6" y2="68.2" stroke="#3fb950" opacity="0.4"/>
+<circle cx="573.6" cy="68.2" r="3" fill="#3fb950"><title>iter 72: Sharpe=5.24, DD=16.6%</title></circle>
+<line x1="573.6" y1="68.2" x2="580.9" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="580.9" cy="106.3" r="3" fill="#3fb950"><title>iter 73: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="580.9" y1="106.3" x2="588.2" y2="109.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="588.2" cy="109.6" r="3" fill="#d29922"><title>iter 74: Sharpe=4.05, DD=12.3%</title></circle>
+<line x1="588.2" y1="109.6" x2="595.5" y2="111.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="595.5" cy="111.4" r="3" fill="#d29922"><title>iter 75: Sharpe=4.00, DD=12.3%</title></circle>
+<line x1="595.5" y1="111.4" x2="602.7" y2="142.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="602.7" cy="142.4" r="3" fill="#d29922"><title>iter 76: Sharpe=3.10, DD=13.9%</title></circle>
+<line x1="602.7" y1="142.4" x2="610.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="610.0" cy="106.3" r="3" fill="#3fb950"><title>iter 77: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="610.0" y1="106.3" x2="617.3" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="617.3" cy="106.3" r="3" fill="#3fb950"><title>iter 78: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="617.3" y1="106.3" x2="624.5" y2="112.8" stroke="#d29922" opacity="0.4"/>
+<circle cx="624.5" cy="112.8" r="3" fill="#d29922"><title>iter 79: Sharpe=3.96, DD=17.5%</title></circle>
+<line x1="624.5" y1="112.8" x2="631.8" y2="113.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="631.8" cy="113.6" r="3" fill="#d29922"><title>iter 80: Sharpe=3.93, DD=12.3%</title></circle>
+<line x1="631.8" y1="113.6" x2="639.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="639.1" cy="106.3" r="3" fill="#3fb950"><title>iter 81: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="639.1" y1="106.3" x2="646.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="646.4" cy="106.3" r="3" fill="#3fb950"><title>iter 82: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="646.4" y1="106.3" x2="653.6" y2="113.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="653.6" cy="113.3" r="3" fill="#3fb950"><title>iter 83: Sharpe=3.94, DD=11.0%</title></circle>
+<line x1="653.6" y1="113.3" x2="660.9" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="660.9" cy="106.3" r="3" fill="#3fb950"><title>iter 84: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="660.9" y1="106.3" x2="668.2" y2="116.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="668.2" cy="116.1" r="3" fill="#d29922"><title>iter 85: Sharpe=3.86, DD=17.4%</title></circle>
+<line x1="668.2" y1="116.1" x2="675.5" y2="116.7" stroke="#d29922" opacity="0.4"/>
+<circle cx="675.5" cy="116.7" r="3" fill="#d29922"><title>iter 86: Sharpe=3.84, DD=12.3%</title></circle>
+<line x1="675.5" y1="116.7" x2="682.7" y2="114.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="682.7" cy="114.4" r="3" fill="#d29922"><title>iter 87: Sharpe=3.91, DD=12.3%</title></circle>
+<line x1="682.7" y1="114.4" x2="697.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="697.3" cy="139.1" r="3" fill="#d29922"><title>iter 89: Sharpe=3.20, DD=14.4%</title></circle>
+<line x1="697.3" y1="139.1" x2="704.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="704.5" cy="128.4" r="3" fill="#d29922"><title>iter 90: Sharpe=3.51, DD=16.4%</title></circle>
+<line x1="704.5" y1="128.4" x2="711.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
+<circle cx="711.8" cy="96.9" r="3" fill="#3fb950"><title>iter 91: Sharpe=4.42, DD=12.4%</title></circle>
+<line x1="711.8" y1="96.9" x2="719.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="719.1" cy="106.3" r="3" fill="#3fb950"><title>iter 92: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="719.1" y1="106.3" x2="726.4" y2="68.2" stroke="#3fb950" opacity="0.4"/>
+<circle cx="726.4" cy="68.2" r="3" fill="#3fb950"><title>iter 93: Sharpe=5.24, DD=16.6%</title></circle>
+<line x1="726.4" y1="68.2" x2="733.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="733.6" cy="106.3" r="3" fill="#3fb950"><title>iter 94: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="733.6" y1="106.3" x2="740.9" y2="109.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="740.9" cy="109.6" r="3" fill="#d29922"><title>iter 95: Sharpe=4.05, DD=12.3%</title></circle>
+<line x1="740.9" y1="109.6" x2="748.2" y2="111.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="748.2" cy="111.4" r="3" fill="#d29922"><title>iter 96: Sharpe=4.00, DD=12.3%</title></circle>
+<line x1="748.2" y1="111.4" x2="755.5" y2="142.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="755.5" cy="142.4" r="3" fill="#d29922"><title>iter 97: Sharpe=3.10, DD=13.9%</title></circle>
+<line x1="755.5" y1="142.4" x2="762.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="762.7" cy="106.3" r="3" fill="#3fb950"><title>iter 98: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="762.7" y1="106.3" x2="770.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="770.0" cy="106.3" r="3" fill="#3fb950"><title>iter 99: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="770.0" y1="106.3" x2="777.3" y2="112.8" stroke="#d29922" opacity="0.4"/>
+<circle cx="777.3" cy="112.8" r="3" fill="#d29922"><title>iter 100: Sharpe=3.96, DD=17.5%</title></circle>
+<line x1="777.3" y1="112.8" x2="784.5" y2="113.6" stroke="#d29922" opacity="0.4"/>
+<circle cx="784.5" cy="113.6" r="3" fill="#d29922"><title>iter 101: Sharpe=3.93, DD=12.3%</title></circle>
+<line x1="784.5" y1="113.6" x2="791.8" y2="250.0" stroke="#f85149" opacity="0.4"/>
+<circle cx="791.8" cy="250.0" r="3" fill="#f85149"><title>iter 102: Sharpe=0.00, DD=0.0%</title></circle>
+<line x1="791.8" y1="250.0" x2="799.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="799.1" cy="106.3" r="3" fill="#3fb950"><title>iter 103: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="799.1" y1="106.3" x2="806.4" y2="113.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="806.4" cy="113.3" r="3" fill="#3fb950"><title>iter 104: Sharpe=3.94, DD=11.0%</title></circle>
+<line x1="806.4" y1="113.3" x2="813.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
+<circle cx="813.6" cy="106.3" r="3" fill="#3fb950"><title>iter 105: Sharpe=4.14, DD=12.3%</title></circle>
+<line x1="813.6" y1="106.3" x2="820.9" y2="116.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="820.9" cy="116.1" r="3" fill="#d29922"><title>iter 106: Sharpe=3.86, DD=17.4%</title></circle>
+<line x1="820.9" y1="116.1" x2="828.2" y2="116.7" stroke="#d29922" opacity="0.4"/>
+<circle cx="828.2" cy="116.7" r="3" fill="#d29922"><title>iter 107: Sharpe=3.84, DD=12.3%</title></circle>
+<line x1="828.2" y1="116.7" x2="835.5" y2="114.4" stroke="#d29922" opacity="0.4"/>
+<circle cx="835.5" cy="114.4" r="3" fill="#d29922"><title>iter 108: Sharpe=3.91, DD=12.3%</title></circle>
+<line x1="835.5" y1="114.4" x2="850.0" y2="139.1" stroke="#d29922" opacity="0.4"/>
+<circle cx="850.0" cy="139.1" r="3" fill="#d29922"><title>iter 110: Sharpe=3.20, DD=14.4%</title></circle>
+</svg></div>
+</div>
+
+<h2 id="equity">Equity Curves — Top Recommended Configs</h2>
+<p style="color:var(--muted)">Per-trade cumulative equity for the top 5 Pareto-optimal configs. Lower-time trades drive the staircase pattern. Hover for details. <strong>Start: $10,000.</strong></p>
+<div class="panel">
+<div class="chart-container"><svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:monospace">
+<line x1="50" y1="226.02363486235618" x2="850" y2="226.02363486235618" stroke="#8b949e" stroke-dasharray="4,4" opacity="0.5"/>
+<text x="855" y="230.02363486235618" fill="#8b949e" font-size="10">$10k</text>
+<line x1="50" y1="224.13431451483356" x2="850" y2="224.13431451483356" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="218.2668600194217" x2="850" y2="218.2668600194217" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="212.3994055240098" x2="850" y2="212.3994055240098" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="206.53195102859794" x2="850" y2="206.53195102859794" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="200.66449653318608" x2="850" y2="200.66449653318608" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="194.7970420377742" x2="850" y2="194.7970420377742" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="188.92958754236233" x2="850" y2="188.92958754236233" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="183.06213304695046" x2="850" y2="183.06213304695046" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="177.19467855153857" x2="850" y2="177.19467855153857" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="171.3272240561267" x2="850" y2="171.3272240561267" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="165.45976956071485" x2="850" y2="165.45976956071485" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="159.59231506530296" x2="850" y2="159.59231506530296" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="153.7248605698911" x2="850" y2="153.7248605698911" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="147.85740607447923" x2="850" y2="147.85740607447923" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="141.98995157906734" x2="850" y2="141.98995157906734" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="136.12249708365547" x2="850" y2="136.12249708365547" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="130.2550425882436" x2="850" y2="130.2550425882436" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="124.38758809283172" x2="850" y2="124.38758809283172" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="118.52013359741986" x2="850" y2="118.52013359741986" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="112.65267910200798" x2="850" y2="112.65267910200798" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="106.7852246065961" x2="850" y2="106.7852246065961" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="100.91777011118424" x2="850" y2="100.91777011118424" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="95.05031561577238" x2="850" y2="95.05031561577238" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="89.18286112036049" x2="850" y2="89.18286112036049" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="83.31540662494862" x2="850" y2="83.31540662494862" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="77.44795212953676" x2="850" y2="77.44795212953676" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="71.58049763412487" x2="850" y2="71.58049763412487" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="65.713043138713" x2="850" y2="65.713043138713" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="59.84558864330114" x2="850" y2="59.84558864330114" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="53.97813414788925" x2="850" y2="53.97813414788925" stroke="#21262d" stroke-dasharray="2,4"/>
+<line x1="50" y1="230" x2="850" y2="230" stroke="#30363d"/>
+<line x1="50" y1="50" x2="50" y2="230" stroke="#30363d"/>
+<text x="450.0" y="270" fill="#e6edf3" font-size="12" text-anchor="middle">Time (bars in val window)</text>
+<text transform="rotate(-90,15,140.0)" x="15" y="140.0" fill="#e6edf3" font-size="12" text-anchor="middle">Equity ($)</text>
+<path d="M50.0,194.0 L50.0,190.1 L50.0,193.3 L50.0,155.7 L50.0,147.2 L69.3,115.3 L78.9,85.6 L88.6,224.5 L88.6,201.8 L88.6,208.8 L88.6,120.1 L88.6,71.9 L98.2,205.1 L98.2,195.8 L98.2,192.0 L98.2,190.8 L98.2,158.3 L98.2,146.1 L98.2,132.5 L117.5,166.0 L117.5,106.8 L127.1,75.7 L127.1,56.7 L136.7,222.9 L136.7,203.5 L136.7,207.0 L136.7,194.8 L136.7,177.2 L136.7,168.3 L136.7,61.2 L146.4,201.1 L146.4,194.5 L146.4,193.8 L146.4,187.9 L146.4,188.0 L146.4,156.9 L146.4,145.0 L146.4,124.9 L156.0,143.0 L156.0,98.0 L175.3,55.7 L184.9,224.1 L184.9,205.2 L184.9,208.6 L184.9,196.6 L184.9,175.8 L184.9,168.1 L194.6,200.8 L194.6,192.1 L194.6,159.5 L194.6,128.1 L194.6,59.8 L204.2,140.3 L204.2,93.6 L223.5,209.1 L223.5,180.7 L233.1,221.1 L233.1,204.7 L233.1,208.7 L233.1,198.4 L233.1,172.5 L233.1,167.8 L242.8,202.6 L242.8,187.4 L242.8,131.1 L242.8,64.3 L252.4,133.1 L252.4,95.1 L271.7,226.7 L271.7,210.3 L271.7,178.9 L281.3,224.3 L281.3,217.9 L281.3,205.7 L281.3,209.7 L291.0,187.9 L291.0,194.0 L310.2,162.0 L319.9,227.8 L319.9,178.9 L329.5,225.5 L329.5,219.3 L329.5,207.3 L329.5,211.2 L358.4,164.5 L368.1,228.2 L368.1,179.1 L377.7,220.6 L377.7,212.7 L377.7,195.9 L387.3,187.9 L406.6,166.9 L416.3,228.7 L416.3,206.7 L416.3,179.2 L425.9,221.3 L425.9,214.2 L425.9,197.6 L435.5,188.3 L464.5,207.4 L483.7,221.1 L483.7,214.0 L483.7,188.9 L512.7,207.9 L560.8,206.4 L570.5,191.1 L570.5,189.9 L580.1,171.6 L580.1,164.7 L599.4,130.5 L599.4,129.4 L599.4,119.7 L609.0,219.7 L609.0,206.5 L609.0,210.5 L609.0,156.6 L609.0,156.0 L609.0,159.4 L618.7,193.0 L618.7,189.8 L628.3,198.7 L628.3,169.0 L628.3,158.8 L628.3,156.0 L657.2,226.9 L657.2,225.0 L657.2,216.4 L657.2,208.9 L657.2,202.6 L657.2,206.8 L657.2,156.5 L657.2,154.8 L657.2,162.6 L657.2,158.1 L676.5,197.4 L676.5,193.5 L676.5,171.3 L676.5,159.3 L676.5,156.5 L686.1,187.2 L695.8,131.7 L695.8,65.1 L705.4,226.3 L705.4,224.8 L705.4,214.6 L705.4,208.2 L705.4,201.1 L705.4,205.1 L705.4,156.9 L705.4,154.1 L705.4,162.1 L705.4,157.3 L705.4,153.2 L715.1,136.2 L724.7,195.6 L724.7,192.6 L724.7,170.5 L724.7,157.8 L724.7,156.4 L734.3,189.2 L734.3,186.9 L744.0,168.3 L744.0,130.2 L744.0,64.1 L753.6,224.2 L753.6,224.6 L753.6,212.7 L753.6,207.4 L753.6,200.9 L753.6,203.4 L753.6,153.1 L753.6,160.9 L753.6,155.9 L753.6,150.9 L763.3,134.2 L772.9,192.1 L772.9,192.4 L772.9,169.1 L772.9,156.8 L782.5,182.0 L782.5,163.5 L792.2,168.1 L792.2,167.0 L792.2,145.4 L792.2,127.9 L792.2,62.2 L801.8,224.2 L801.8,206.3 L801.8,200.1 L801.8,160.2 L801.8,149.3 L811.4,127.4 L840.4,168.1 L840.4,166.8 L840.4,61.9 L850.0,206.3 L850.0,200.1 L850.0,149.4" fill="none" stroke="#58a6ff" stroke-width="1.5" opacity="0.85"><title>57c9532: m_wider_pivot: pivot_lookback=6 — final $23063</title></path>
+<path d="M50.0,194.0 L50.0,194.2 L50.0,197.2 L50.0,161.3 L50.0,153.1 L69.3,122.6 L78.9,94.3 L88.6,224.5 L88.6,201.8 L88.6,208.8 L88.6,127.2 L88.6,81.1 L98.2,205.1 L98.2,195.8 L98.2,196.0 L98.2,194.9 L98.2,163.8 L98.2,152.0 L98.2,139.0 L117.5,171.1 L117.5,114.5 L127.1,84.7 L136.7,222.9 L136.7,203.5 L136.7,207.0 L136.7,198.7 L136.7,181.9 L136.7,173.3 L136.7,70.9 L146.4,201.1 L146.4,194.5 L146.4,197.7 L146.4,192.0 L146.4,192.1 L146.4,162.4 L146.4,151.0 L146.4,131.7 L156.0,149.1 L156.0,106.1 L184.9,224.1 L184.9,205.2 L184.9,208.6 L184.9,200.4 L184.9,180.5 L184.9,173.1 L194.6,200.8 L194.6,192.1 L194.6,164.9 L194.6,134.8 L194.6,69.5 L204.2,146.5 L204.2,101.9 L223.5,209.1 L223.5,185.2 L233.1,221.1 L233.1,204.7 L233.1,208.7 L233.1,202.1 L233.1,177.3 L233.1,172.8 L242.8,202.6 L242.8,137.8 L242.8,73.8 L252.4,139.6 L252.4,103.3 L271.7,226.7 L271.7,210.3 L271.7,183.4 L281.3,224.3 L281.3,217.9 L281.3,205.7 L281.3,209.7 L291.0,198.0 L310.2,167.3 L319.9,227.8 L319.9,183.4 L329.5,225.5 L329.5,219.3 L329.5,207.3 L329.5,211.2 L358.4,169.6 L368.1,228.2 L368.1,183.6 L377.7,220.6 L377.7,212.7 L377.7,199.7 L387.3,192.1 L406.6,172.0 L416.3,228.7 L416.3,206.7 L416.3,183.7 L425.9,221.3 L425.9,214.2 L425.9,201.4 L435.5,192.5 L464.5,207.4 L483.7,221.1 L483.7,214.0 L483.7,193.0 L512.7,207.9 L560.8,206.4 L570.5,195.1 L570.5,194.0 L580.1,176.5 L580.1,169.9 L599.4,137.2 L599.4,136.0 L599.4,126.8 L609.0,219.7 L609.0,206.5 L609.0,210.5 L609.0,162.1 L609.0,161.5 L609.0,164.8 L618.7,196.9 L618.7,193.9 L628.3,198.7 L628.3,174.0 L628.3,164.2 L628.3,161.5 L657.2,226.9 L657.2,225.0 L657.2,216.4 L657.2,208.9 L657.2,202.6 L657.2,206.8 L657.2,162.0 L657.2,160.3 L657.2,167.8 L657.2,163.6 L676.5,197.4 L676.5,197.5 L676.5,176.2 L676.5,164.7 L676.5,162.0 L686.1,191.4 L695.8,138.3 L695.8,74.6 L705.4,226.3 L705.4,224.8 L705.4,214.6 L705.4,208.2 L705.4,201.1 L705.4,205.1 L705.4,162.4 L705.4,159.8 L705.4,167.4 L705.4,162.8 L705.4,158.9 L715.1,142.6 L724.7,195.6 L724.7,196.5 L724.7,175.5 L724.7,163.2 L724.7,162.0 L734.3,193.3 L734.3,191.1 L744.0,173.4 L744.0,136.9 L744.0,73.7 L753.6,224.2 L753.6,224.6 L753.6,212.7 L753.6,207.4 L753.6,200.9 L753.6,203.4 L753.6,158.7 L753.6,166.3 L753.6,161.5 L753.6,156.6 L763.3,140.7 L772.9,192.1 L772.9,196.4 L772.9,174.0 L772.9,162.3 L782.5,186.5 L782.5,168.7 L792.2,173.1 L792.2,172.1 L792.2,151.4 L792.2,134.7 L792.2,71.9 L801.8,224.2 L801.8,206.3 L801.8,200.1 L801.8,165.6 L801.8,155.2 L811.4,134.1 L840.4,173.1 L840.4,171.9 L840.4,71.6 L850.0,206.3 L850.0,200.1 L850.0,155.2" fill="none" stroke="#3fb950" stroke-width="1.5" opacity="0.85"><title>db9648f: m_wider_pivot: pivot_lookback=6 — final $22072</title></path>
+<path d="M50.0,225.9 L50.0,199.0 L50.0,192.7 L50.0,187.9 L50.0,187.4 L50.0,194.3 L50.0,185.1 L50.0,161.1 L50.0,153.3 L50.0,123.0 L69.3,116.1 L78.9,89.3 L88.6,228.8 L88.6,212.3 L88.6,206.4 L88.6,162.3 L88.6,133.2 L88.6,77.7 L98.2,227.1 L98.2,196.2 L98.2,200.7 L98.2,194.5 L98.2,189.9 L98.2,188.3 L98.2,190.6 L98.2,163.6 L98.2,152.3 L98.2,141.9 L117.5,170.4 L117.5,109.4 L127.1,81.4 L127.1,65.1 L136.7,224.8 L136.7,227.4 L136.7,213.8 L136.7,204.5 L136.7,194.0 L136.7,177.2 L136.7,172.7 L136.7,161.4 L136.7,127.2 L136.7,69.5 L146.4,228.2 L146.4,192.7 L146.4,193.3 L146.4,191.8 L146.4,186.6 L146.4,186.9 L146.4,162.3 L146.4,151.7 L146.4,136.2 L156.0,149.7 L156.0,102.5 L175.3,64.1 L184.9,224.9 L184.9,228.5 L184.9,215.2 L184.9,206.1 L184.9,195.8 L184.9,175.4 L184.9,172.5 L184.9,160.9 L184.9,126.7 L194.6,228.7 L194.6,192.4 L194.6,189.6 L194.6,187.4 L194.6,164.7 L194.6,139.1 L194.6,68.0 L204.2,147.1 L204.2,95.3 L223.5,217.2 L223.5,176.6 L233.1,225.5 L233.1,226.3 L233.1,212.4 L233.1,203.0 L233.1,197.6 L233.1,172.1 L233.1,172.2 L233.1,128.2 L242.8,228.9 L242.8,194.3 L242.8,185.9 L242.8,188.2 L242.8,142.0 L242.8,72.4 L252.4,141.7 L252.4,96.8 L271.7,218.3 L271.7,174.7 L281.3,225.8 L281.3,223.9 L281.3,209.6 L281.3,199.8 L281.3,174.4 L291.0,229.2 L291.0,186.3 L291.0,188.7 L291.0,194.1 L291.0,160.9 L300.6,200.8 L310.2,167.2 L319.9,174.7 L329.5,227.0 L329.5,225.1 L329.5,211.1 L329.5,201.5 L329.5,176.7 L339.2,187.3 L339.2,196.0 L339.2,161.3 L358.4,169.5 L368.1,174.9 L377.7,227.6 L377.7,226.3 L377.7,203.2 L387.3,186.4 L387.3,185.4 L387.3,197.7 L387.3,162.1 L406.6,171.8 L416.3,215.8 L416.3,175.0 L425.9,228.0 L425.9,227.0 L425.9,204.8 L435.5,186.7 L464.5,216.5 L483.7,229.3 L483.7,226.8 L483.7,218.2 L483.7,211.6 L483.7,204.6 L483.7,187.7 L512.7,216.9 L531.9,229.2 L551.2,217.9 L551.2,196.2 L560.8,215.6 L570.5,190.3 L570.5,188.9 L580.1,229.1 L580.1,175.9 L580.1,169.1 L599.4,218.4 L599.4,197.2 L599.4,173.5 L599.4,140.0 L599.4,138.9 L599.4,122.6 L609.0,225.5 L609.0,215.7 L609.0,201.5 L609.0,162.2 L609.0,161.4 L609.0,164.6 L618.7,192.2 L618.7,188.4 L628.3,229.0 L628.3,197.5 L628.3,173.4 L628.3,164.5 L628.3,161.9 L647.6,217.7 L657.2,226.2 L657.2,223.2 L657.2,213.0 L657.2,208.7 L657.2,198.2 L657.2,162.2 L657.2,160.2 L657.2,167.7 L657.2,163.4 L676.5,228.8 L676.5,196.2 L676.5,191.5 L676.5,175.6 L676.5,165.0 L676.5,162.3 L686.1,186.9 L686.1,188.0 L695.8,219.1 L695.8,142.5 L695.8,73.2 L705.4,227.4 L705.4,221.5 L705.4,211.6 L705.4,206.5 L705.4,196.3 L705.4,162.5 L705.4,159.6 L705.4,167.2 L705.4,162.7 L705.4,159.1 L715.1,144.6 L724.7,228.8 L724.7,194.4 L724.7,190.4 L724.7,174.8 L724.7,163.5 L724.7,162.3 L734.3,186.7 L734.3,189.9 L734.3,182.0 L744.0,218.1 L744.0,172.7 L744.0,141.2 L744.0,72.3 L753.6,225.3 L753.6,219.8 L753.6,211.5 L753.6,204.8 L753.6,194.4 L753.6,162.3 L753.6,158.6 L753.6,166.1 L753.6,161.7 L753.6,156.9 L763.3,142.7 L772.9,228.7 L772.9,190.8 L772.9,190.3 L772.9,173.4 L772.9,162.6 L782.5,186.7 L782.5,178.0 L782.5,168.6 L792.2,216.2 L792.2,172.5 L792.2,171.4 L792.2,152.0 L792.2,139.1 L792.2,70.4 L801.8,210.8 L801.8,162.2 L801.8,165.4 L801.8,155.4 L811.4,137.1 L821.1,228.6 L840.4,215.5 L840.4,172.5 L840.4,171.3 L840.4,70.1 L850.0,210.8 L850.0,155.5" fill="none" stroke="#d29922" stroke-width="1.5" opacity="0.85"><title>8faad48: m_lower_rr: tp_rr_ratio=2.0 — final $22027</title></path>
+<path d="M50.0,183.4 L50.0,184.0 L50.0,184.7 L50.0,146.1 L50.0,135.6 L69.3,112.1 L78.9,103.9 L88.6,226.0 L88.6,194.3 L88.6,204.2 L88.6,118.9 L88.6,87.5 L98.2,194.5 L98.2,185.4 L98.2,186.0 L98.2,181.6 L98.2,148.9 L98.2,134.3 L98.2,131.6 L117.5,166.1 L117.5,107.6 L127.1,93.1 L136.7,224.7 L136.7,196.1 L136.7,202.5 L136.7,188.2 L136.7,169.8 L136.7,75.7 L146.4,191.3 L146.4,183.3 L146.4,188.0 L146.4,180.7 L146.4,178.8 L146.4,140.8 L146.4,133.7 L146.4,122.5 L156.0,173.0 L156.0,131.7 L156.0,111.2 L184.9,225.9 L184.9,197.9 L184.9,204.2 L184.9,190.1 L184.9,169.1 L184.9,76.5 L194.6,191.8 L194.6,182.2 L194.6,143.7 L194.6,125.7 L204.2,167.9 L204.2,130.7 L204.2,111.8 L223.5,207.4 L223.5,172.4 L233.1,222.3 L233.1,199.1 L233.1,205.8 L233.1,192.0 L233.1,168.2 L233.1,80.7 L242.8,193.7 L242.8,128.9 L252.4,166.8 L252.4,133.9 L252.4,114.2 L271.7,226.5 L271.7,202.8 L271.7,171.2 L281.3,224.8 L281.3,218.6 L281.3,200.9 L281.3,201.1 L281.3,84.8 L291.0,186.4 L310.2,146.5 L319.9,227.6 L319.9,171.3 L329.5,226.0 L329.5,219.9 L329.5,202.6 L329.5,202.8 L358.4,149.3 L368.1,228.4 L368.1,170.6 L377.7,221.2 L377.7,204.5 L377.7,188.4 L387.3,181.9 L406.6,152.0 L416.3,229.2 L416.3,199.3 L416.3,170.6 L425.9,222.5 L425.9,206.1 L425.9,190.3 L435.5,182.5 L464.5,199.8 L483.7,182.7 L512.7,199.6 L560.8,199.0 L570.5,184.2 L570.5,180.9 L580.1,169.1 L580.1,160.2 L599.4,131.3 L599.4,128.5 L599.4,116.9 L609.0,219.5 L609.0,198.1 L609.0,201.4 L609.0,147.6 L609.0,146.4 L609.0,143.5 L618.7,186.2 L618.7,177.0 L628.3,188.7 L628.3,166.8 L628.3,152.8 L628.3,147.1 L657.2,227.5 L657.2,225.5 L657.2,215.6 L657.2,201.3 L657.2,195.2 L657.2,196.5 L657.2,147.5 L657.2,145.0 L657.2,147.2 L657.2,142.1 L676.5,187.3 L676.5,187.7 L676.5,169.1 L676.5,153.3 L676.5,147.6 L686.1,180.0 L695.8,132.0 L695.8,88.8 L705.4,226.9 L705.4,225.3 L705.4,213.7 L705.4,200.6 L705.4,193.5 L705.4,194.5 L705.4,147.9 L705.4,144.4 L705.4,146.6 L705.4,141.2 L705.4,137.2 L715.1,137.0 L724.7,185.2 L724.7,186.7 L724.7,171.4 L724.7,151.7 L724.7,147.6 L734.3,182.1 L734.3,179.2 L744.0,166.0 L744.0,130.5 L744.0,87.9 L753.6,224.7 L753.6,225.1 L753.6,211.8 L753.6,199.6 L753.6,193.3 L753.6,192.6 L753.6,143.2 L753.6,145.9 L753.6,140.2 L753.6,134.5 L763.3,135.0 L772.9,181.3 L772.9,186.6 L772.9,170.0 L772.9,147.9 L782.5,174.2 L782.5,148.2 L792.2,168.4 L792.2,164.6 L792.2,134.1 L792.2,128.2 L792.2,86.2 L801.8,224.8 L801.8,198.4 L801.8,192.4 L801.8,145.1 L801.8,137.8 L811.4,128.2 L840.4,168.4 L840.4,164.4 L840.4,86.0 L850.0,198.4 L850.0,192.4 L850.0,145.1 L850.0,137.8" fill="none" stroke="#f85149" stroke-width="1.5" opacity="0.85"><title>04d8492: m_wider_pivot: pivot_lookback=6 — final $25030</title></path>
+<path d="M50.0,226.6 L50.0,206.7 L50.0,203.3 L50.0,199.2 L50.0,197.8 L50.0,201.1 L50.0,197.9 L50.0,182.4 L50.0,178.3 L50.0,151.0 L69.3,148.2 L78.9,123.8 L88.6,228.3 L88.6,210.3 L88.6,208.6 L88.6,181.6 L88.6,159.2 L88.6,112.4 L98.2,227.0 L98.2,205.3 L98.2,208.3 L98.2,204.9 L98.2,200.9 L98.2,197.6 L98.2,198.7 L98.2,184.5 L98.2,177.3 L98.2,168.4 L117.5,186.9 L117.5,141.4 L127.1,115.8 L127.1,96.1 L136.7,226.1 L136.7,228.3 L136.7,211.9 L136.7,208.5 L136.7,202.4 L136.7,189.8 L136.7,187.7 L136.7,181.6 L136.7,152.9 L136.7,103.8 L146.4,228.1 L146.4,201.3 L146.4,204.5 L146.4,202.6 L146.4,197.4 L146.4,196.4 L146.4,183.9 L146.4,177.0 L146.4,162.7 L156.0,176.6 L156.0,134.3 L175.3,95.0 L184.9,226.0 L184.9,229.4 L184.9,213.3 L184.9,210.0 L184.9,204.1 L184.9,187.8 L184.9,187.1 L184.9,181.3 L184.9,152.2 L194.6,228.4 L194.6,200.7 L194.6,202.9 L194.6,197.6 L194.6,185.9 L194.6,165.1 L194.6,102.2 L204.2,174.4 L204.2,128.6 L223.5,216.9 L223.5,189.9 L233.1,225.9 L233.1,226.7 L233.1,210.8 L233.1,207.8 L233.1,205.7 L233.1,186.2 L233.1,187.5 L233.1,152.3 L242.8,228.4 L242.8,202.5 L242.8,198.9 L242.8,198.4 L242.8,167.4 L242.8,101.9 L252.4,168.9 L252.4,126.7 L271.7,216.6 L271.7,188.6 L281.3,226.2 L281.3,223.8 L281.3,210.3 L281.3,207.8 L281.3,188.2 L291.0,228.5 L291.0,198.7 L291.0,198.9 L291.0,201.7 L291.0,181.5 L300.6,207.9 L310.2,187.9 L319.9,187.2 L329.5,227.3 L329.5,225.0 L329.5,211.8 L329.5,209.3 L329.5,190.2 L339.2,197.6 L339.2,203.4 L339.2,181.6 L358.4,189.9 L368.1,187.2 L377.7,227.8 L377.7,226.2 L377.7,210.9 L387.3,198.5 L387.3,196.0 L387.3,205.0 L387.3,182.3 L406.6,191.8 L416.3,214.4 L416.3,187.8 L425.9,227.8 L425.9,226.8 L425.9,212.4 L435.5,199.0 L464.5,214.6 L483.7,228.7 L483.7,227.5 L483.7,216.5 L483.7,212.6 L483.7,213.1 L483.7,199.6 L512.7,215.3 L531.9,228.8 L551.2,215.4 L551.2,204.2 L560.8,215.0 L570.5,199.4 L570.5,198.2 L580.1,228.6 L580.1,189.3 L580.1,187.5 L599.4,215.6 L599.4,205.1 L599.4,189.5 L599.4,166.9 L599.4,166.1 L599.4,150.7 L609.0,226.4 L609.0,214.5 L609.0,209.6 L609.0,182.5 L609.0,182.2 L609.0,186.6 L618.7,200.7 L618.7,198.8 L628.3,228.5 L628.3,207.2 L628.3,188.0 L628.3,182.7 L628.3,181.6 L647.6,216.0 L657.2,227.4 L657.2,223.5 L657.2,211.1 L657.2,210.8 L657.2,207.0 L657.2,182.5 L657.2,181.6 L657.2,188.8 L657.2,186.1 L676.5,228.4 L676.5,206.4 L676.5,202.5 L676.5,189.9 L676.5,182.8 L676.5,182.0 L686.1,198.8 L686.1,198.5 L695.8,217.4 L695.8,168.0 L695.8,102.9 L705.4,228.6 L705.4,221.8 L705.4,209.7 L705.4,208.7 L705.4,205.3 L705.4,182.8 L705.4,181.2 L705.4,188.5 L705.4,185.5 L705.4,182.6 L715.1,171.3 L724.7,228.4 L724.7,204.7 L724.7,201.6 L724.7,189.3 L724.7,181.6 L724.7,182.0 L734.3,198.6 L734.3,200.3 L734.3,195.2 L744.0,216.4 L744.0,188.8 L744.0,166.9 L744.0,102.1 L753.6,226.5 L753.6,220.1 L753.6,209.5 L753.6,207.0 L753.6,203.6 L753.6,182.6 L753.6,180.3 L753.6,187.5 L753.6,184.7 L753.6,180.8 L763.3,169.7 L772.9,228.3 L772.9,201.6 L772.9,201.5 L772.9,188.1 L772.9,180.8 L782.5,198.6 L782.5,190.8 L782.5,189.1 L792.2,214.5 L792.2,187.8 L792.2,187.7 L792.2,177.3 L792.2,165.2 L792.2,100.5 L801.8,208.8 L801.8,182.6 L801.8,187.0 L801.8,179.6 L811.4,164.5 L821.1,228.2 L840.4,213.7 L840.4,187.8 L840.4,187.6 L840.4,100.3 L850.0,208.8 L850.0,179.6" fill="none" stroke="#a371f7" stroke-width="1.5" opacity="0.85"><title>c1799be: m_shorter_hold: max_hold_bars=15 — final $17915</title></path>
+<rect x="650" y="55" width="12" height="12" fill="#58a6ff" opacity="0.85"/>
+<text x="666" y="65" fill="#e6edf3" font-size="10">57c9532 Sharpe=5.24 DD=17% → $23063</text>
+<rect x="650" y="71" width="12" height="12" fill="#3fb950" opacity="0.85"/>
+<text x="666" y="81" fill="#e6edf3" font-size="10">db9648f Sharpe=5.08 DD=17% → $22072</text>
+<rect x="650" y="87" width="12" height="12" fill="#d29922" opacity="0.85"/>
+<text x="666" y="97" fill="#e6edf3" font-size="10">8faad48 Sharpe=4.42 DD=12% → $22027</text>
+<rect x="650" y="103" width="12" height="12" fill="#f85149" opacity="0.85"/>
+<text x="666" y="113" fill="#e6edf3" font-size="10">04d8492 Sharpe=4.25 DD=15% → $25030</text>
+<rect x="650" y="119" width="12" height="12" fill="#a371f7" opacity="0.85"/>
+<text x="666" y="129" fill="#e6edf3" font-size="10">c1799be Sharpe=3.94 DD=11% → $17915</text>
+</svg></div>
+<table style="margin-top:16px"><thead><tr><th>Commit</th><th>Description</th><th onclick="sortTable(this.closest('table'),2)">Final Equity</th><th onclick="sortTable(this.closest('table'),3)">Return</th><th onclick="sortTable(this.closest('table'),4)">Worst In-Window DD</th><th onclick="sortTable(this.closest('table'),5)">Win Rate</th><th onclick="sortTable(this.closest('table'),6)">Trades</th></tr></thead><tbody><tr><td class="mono">57c9532</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="23063">$23,063</td><td data-value="130.6" style="color:var(--green)">+130.6%</td><td data-value="75.5">75.5%</td><td>61.6%</td><td>198</td></tr><tr><td class="mono">db9648f</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="22072">$22,072</td><td data-value="120.7" style="color:var(--green)">+120.7%</td><td data-value="74.0">74.0%</td><td>61.3%</td><td>194</td></tr><tr><td class="mono">8faad48</td><td>m_lower_rr: tp_rr_ratio=2.0</td><td data-value="22027">$22,027</td><td data-value="120.3" style="color:var(--green)">+120.3%</td><td data-value="74.9">74.9%</td><td>58.7%</td><td>247</td></tr><tr><td class="mono">04d8492</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="25030">$25,030</td><td data-value="150.3" style="color:var(--green)">+150.3%</td><td data-value="73.5">73.5%</td><td>57.7%</td><td>194</td></tr><tr><td class="mono">c1799be</td><td>m_shorter_hold: max_hold_bars=15</td><td data-value="17915">$17,915</td><td data-value="79.1" style="color:var(--green)">+79.1%</td><td data-value="70.9">70.9%</td><td>59.5%</td><td>247</td></tr></tbody></table>
+</div>
+
+<h2 id="pareto">Pareto Frontier</h2>
+<p style="color:var(--muted)">Results that are not dominated on (Sharpe ↑, max DD ↓). Pick one based on your risk preference.</p>
+<div class="panel">
+<table id="pareto-table" data-dir="desc">
+<thead>
+<tr><th>Commit</th><th onclick="sortTable(this.closest('table'),1)">Sharpe</th><th onclick="sortTable(this.closest('table'),2)">Max DD</th><th onclick="sortTable(this.closest('table'),3)">WR</th><th onclick="sortTable(this.closest('table'),4)">Trades</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td class="mono">57c9532</td><td data-value="5.243">5.243</td><td data-value="0.166">16.6%</td><td>61.6%</td><td>198</td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr><td class="mono">bbbdee7</td><td data-value="5.243">5.243</td><td data-value="0.166">16.6%</td><td>61.6%</td><td>198</td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr><td class="mono">8faad48</td><td data-value="4.416">4.416</td><td data-value="0.124">12.4%</td><td>58.7%</td><td>247</td><td>m_lower_rr: tp_rr_ratio=2.0</td></tr><tr><td class="mono">be93cf7</td><td data-value="4.416">4.416</td><td data-value="0.124">12.4%</td><td>58.7%</td><td>247</td><td>m_lower_rr: tp_rr_ratio=2.0</td></tr><tr><td class="mono">7093501</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_slower_rsi: rsi_period=20</td></tr><tr><td class="mono">f305852</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_faster: h4_ema_period=50</td></tr><tr><td class="mono">749e4eb</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_slower: h4_ema_period=60</td></tr><tr><td class="mono">861d7fd</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr><td class="mono">6895d48</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr><td class="mono">9febb7f</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_longer_hold: max_hold_bars=20</td></tr><tr><td class="mono">5a39dd8</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_higher_rr: tp_rr_ratio=2.5</td></tr><tr><td class="mono">88dc48c</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr><td class="mono">64fa02c</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_faster: h4_ema_period=50</td></tr><tr><td class="mono">a251f56</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_slower: h4_ema_period=60</td></tr><tr><td class="mono">56d48fb</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr><td class="mono">f672720</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr><td class="mono">824dbb1</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_longer_hold: max_hold_bars=20</td></tr><tr><td class="mono">42136db</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_higher_rr: tp_rr_ratio=2.5</td></tr><tr><td class="mono">b7c3daf</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr><td class="mono">99b020c</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_faster: h4_ema_period=50</td></tr><tr><td class="mono">5b8ab34</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_trend_slower: h4_ema_period=60</td></tr><tr><td class="mono">32e3563</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_higher_atr_floor: min_atr_pips=7</td></tr><tr><td class="mono">fb26b78</td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td>57.5%</td><td>247</td><td>m_longer_hold: max_hold_bars=20</td></tr><tr><td class="mono">c1799be</td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td>59.5%</td><td>247</td><td>m_shorter_hold: max_hold_bars=15</td></tr><tr><td class="mono">3810308</td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td>59.5%</td><td>247</td><td>m_shorter_hold: max_hold_bars=15</td></tr><tr><td class="mono">6ac1435</td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td>59.5%</td><td>247</td><td>m_shorter_hold: max_hold_bars=15</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="results">All Experiments</h2>
+<div class="panel">
+<div class="filter-bar">
+<input type="text" id="q" placeholder="filter by description..." oninput="filterResults()" style="width:300px">
+<select id="st" onchange="filterResults()" style="margin-left:8px">
+<option value="">all statuses</option>
+<option value="keep">keep</option>
+<option value="discard">discard</option>
+<option value="discard-dom">discard (dominated)</option>
+<option value="crash">crash</option>
+</select>
+</div>
+<table id="results-table" data-dir="desc">
+<thead>
+<tr><th>Commit</th><th onclick="sortTable(this.closest('table'),1)">Sharpe</th><th onclick="sortTable(this.closest('table'),2)">Max DD</th><th onclick="sortTable(this.closest('table'),3)">WR</th><th onclick="sortTable(this.closest('table'),4)">Trades</th><th>Status</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/57c9532">57c9532</a></td><td data-value="5.243">5.243</td><td data-value="0.166">16.6%</td><td data-value="0.616">61.6%</td><td data-value="198">198</td><td><span class="badge b-keep">keep</span></td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/bbbdee7">bbbdee7</a></td><td data-value="5.243">5.243</td><td data-value="0.166">16.6%</td><td data-value="0.616">61.6%</td><td data-value="198">198</td><td><span class="badge b-keep">keep</span></td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/db9648f">db9648f</a></td><td data-value="5.082">5.082</td><td data-value="0.166">16.6%</td><td data-value="0.613">61.3%</td><td data-value="194">194</td><td><span class="badge b-keep">keep</span></td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/8faad48">8faad48</a></td><td data-value="4.416">4.416</td><td data-value="0.124">12.4%</td><td data-value="0.587">58.7%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_lower_rr: tp_rr_ratio=2.0</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/be93cf7">be93cf7</a></td><td data-value="4.416">4.416</td><td data-value="0.124">12.4%</td><td data-value="0.587">58.7%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_lower_rr: tp_rr_ratio=2.0</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/04d8492">04d8492</a></td><td data-value="4.254">4.254</td><td data-value="0.148">14.8%</td><td data-value="0.577">57.7%</td><td data-value="194">194</td><td><span class="badge b-keep">keep</span></td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/7093501">7093501</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_slower_rsi: rsi_period=20</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/f305852">f305852</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_faster: h4_ema_period=50</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/749e4eb">749e4eb</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_slower: h4_ema_period=60</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/861d7fd">861d7fd</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/6895d48">6895d48</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/9febb7f">9febb7f</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_longer_hold: max_hold_bars=20</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/5a39dd8">5a39dd8</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_higher_rr: tp_rr_ratio=2.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/88dc48c">88dc48c</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/64fa02c">64fa02c</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_faster: h4_ema_period=50</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/a251f56">a251f56</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_slower: h4_ema_period=60</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/56d48fb">56d48fb</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/f672720">f672720</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/824dbb1">824dbb1</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_longer_hold: max_hold_bars=20</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/42136db">42136db</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_higher_rr: tp_rr_ratio=2.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/b7c3daf">b7c3daf</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/99b020c">99b020c</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_faster: h4_ema_period=50</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/5b8ab34">5b8ab34</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_trend_slower: h4_ema_period=60</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/32e3563">32e3563</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_higher_atr_floor: min_atr_pips=7</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/fb26b78">fb26b78</a></td><td data-value="4.145">4.145</td><td data-value="0.123">12.3%</td><td data-value="0.575">57.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_longer_hold: max_hold_bars=20</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="4.048">4.048</td><td data-value="0.123">12.3%</td><td data-value="0.57">57.0%</td><td data-value="249">249</td><td><span class="badge b-dom">discard-dom</span></td><td>m_slower_rsi: rsi_period=22</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="4.048">4.048</td><td data-value="0.123">12.3%</td><td data-value="0.57">57.0%</td><td data-value="249">249</td><td><span class="badge b-dom">discard-dom</span></td><td>m_slower_rsi: rsi_period=22</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/00ecb2b">00ecb2b</a></td><td data-value="4.006">4.006</td><td data-value="0.232">23.2%</td><td data-value="0.6">60.0%</td><td data-value="195">195</td><td><span class="badge b-keep">keep</span></td><td>m_wider_pivot: pivot_lookback=6</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/201c215">201c215</a></td><td data-value="3.998">3.998</td><td data-value="0.123">12.3%</td><td data-value="0.572">57.2%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_lower_rr: tp_rr_ratio=2.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/692d17e">692d17e</a></td><td data-value="3.998">3.998</td><td data-value="0.123">12.3%</td><td data-value="0.572">57.2%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.998">3.998</td><td data-value="0.123">12.3%</td><td data-value="0.572">57.2%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_faster_rsi: rsi_period=18</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.998">3.998</td><td data-value="0.123">12.3%</td><td data-value="0.572">57.2%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_faster_rsi: rsi_period=18</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.998">3.998</td><td data-value="0.123">12.3%</td><td data-value="0.572">57.2%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_faster_rsi: rsi_period=18</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.957">3.957</td><td data-value="0.175">17.5%</td><td data-value="0.583">58.3%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_closer_entry: entry_atr_mult=1.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.957">3.957</td><td data-value="0.175">17.5%</td><td data-value="0.583">58.3%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_closer_entry: entry_atr_mult=1.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.957">3.957</td><td data-value="0.175">17.5%</td><td data-value="0.583">58.3%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_closer_entry: entry_atr_mult=1.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/c1799be">c1799be</a></td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td data-value="0.595">59.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_shorter_hold: max_hold_bars=15</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/3810308">3810308</a></td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td data-value="0.595">59.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_shorter_hold: max_hold_bars=15</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/6ac1435">6ac1435</a></td><td data-value="3.941">3.941</td><td data-value="0.11">11.0%</td><td data-value="0.595">59.5%</td><td data-value="247">247</td><td><span class="badge b-keep">keep</span></td><td>m_shorter_hold: max_hold_bars=15</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.932">3.932</td><td data-value="0.123">12.3%</td><td data-value="0.569">56.9%</td><td data-value="248">248</td><td><span class="badge b-dom">discard-dom</span></td><td>m_farther_entry: entry_atr_mult=2.0</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.932">3.932</td><td data-value="0.123">12.3%</td><td data-value="0.569">56.9%</td><td data-value="248">248</td><td><span class="badge b-dom">discard-dom</span></td><td>m_farther_entry: entry_atr_mult=2.0</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.932">3.932</td><td data-value="0.123">12.3%</td><td data-value="0.569">56.9%</td><td data-value="248">248</td><td><span class="badge b-dom">discard-dom</span></td><td>m_farther_entry: entry_atr_mult=2.0</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.911">3.911</td><td data-value="0.123">12.3%</td><td data-value="0.571">57.1%</td><td data-value="245">245</td><td><span class="badge b-dom">discard-dom</span></td><td>m_more_touches: min_zone_touches=2</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.911">3.911</td><td data-value="0.123">12.3%</td><td data-value="0.571">57.1%</td><td data-value="245">245</td><td><span class="badge b-dom">discard-dom</span></td><td>m_more_touches: min_zone_touches=2</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.911">3.911</td><td data-value="0.123">12.3%</td><td data-value="0.571">57.1%</td><td data-value="245">245</td><td><span class="badge b-dom">discard-dom</span></td><td>m_more_touches: min_zone_touches=2</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.862">3.862</td><td data-value="0.174">17.4%</td><td data-value="0.586">58.6%</td><td data-value="244">244</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_tighter: zone_atr_mult=0.25</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.862">3.862</td><td data-value="0.174">17.4%</td><td data-value="0.586">58.6%</td><td data-value="244">244</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_tighter: zone_atr_mult=0.25</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.862">3.862</td><td data-value="0.174">17.4%</td><td data-value="0.586">58.6%</td><td data-value="244">244</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_tighter: zone_atr_mult=0.25</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.843">3.843</td><td data-value="0.123">12.3%</td><td data-value="0.562">56.2%</td><td data-value="249">249</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.843">3.843</td><td data-value="0.123">12.3%</td><td data-value="0.562">56.2%</td><td data-value="249">249</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.843">3.843</td><td data-value="0.123">12.3%</td><td data-value="0.562">56.2%</td><td data-value="249">249</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/75a2dd0">75a2dd0</a></td><td data-value="3.789">3.789</td><td data-value="0.123">12.3%</td><td data-value="0.564">56.4%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_fewer_touches: min_zone_touches=1</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.789">3.789</td><td data-value="0.123">12.3%</td><td data-value="0.564">56.4%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_higher_rr: tp_rr_ratio=3.0</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/01066c5">01066c5</a></td><td data-value="3.631">3.631</td><td data-value="0.125">12.5%</td><td data-value="0.554">55.4%</td><td data-value="242">242</td><td><span class="badge b-keep">keep</span></td><td>m_zone_tighter: zone_atr_mult=0.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.583">3.583</td><td data-value="0.125">12.5%</td><td data-value="0.558">55.8%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_closer_entry: entry_atr_mult=1.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.574">3.574</td><td data-value="0.144">14.4%</td><td data-value="0.531">53.1%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/179c660">179c660</a></td><td data-value="3.559">3.559</td><td data-value="0.152">15.2%</td><td data-value="0.551">55.1%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_slower_rsi: rsi_period=16</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/f894d28">f894d28</a></td><td data-value="3.559">3.559</td><td data-value="0.152">15.2%</td><td data-value="0.551">55.1%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_trend_slower: h4_ema_period=60</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.551">3.551</td><td data-value="0.152">15.2%</td><td data-value="0.553">55.3%</td><td data-value="246">246</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_faster: h4_ema_period=40</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/68ad4ae">68ad4ae</a></td><td data-value="3.538">3.538</td><td data-value="0.123">12.3%</td><td data-value="0.56">56.0%</td><td data-value="241">241</td><td><span class="badge b-keep">keep</span></td><td>m_zone_tighter: zone_atr_mult=0.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.507">3.507</td><td data-value="0.164">16.4%</td><td data-value="0.571">57.1%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_wider_sl: sl_atr_mult=3.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.507">3.507</td><td data-value="0.164">16.4%</td><td data-value="0.571">57.1%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_wider_sl: sl_atr_mult=3.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.425">3.425</td><td data-value="0.173">17.3%</td><td data-value="0.564">56.4%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_closer_entry: entry_atr_mult=1.25</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/ba77749">ba77749</a></td><td data-value="3.388">3.388</td><td data-value="0.16">16.0%</td><td data-value="0.555">55.5%</td><td data-value="245">245</td><td><span class="badge b-keep">keep</span></td><td>m_lower_rr: tp_rr_ratio=2.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.38">3.380</td><td data-value="0.16">16.0%</td><td data-value="0.568">56.8%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_wider_sl: sl_atr_mult=3.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/915c121">915c121</a></td><td data-value="3.354">3.354</td><td data-value="0.24">24.0%</td><td data-value="0.55">55.0%</td><td data-value="242">242</td><td><span class="badge b-keep">keep</span></td><td>v1: added per-pair signal cooldown (5 bars), passes all constraints</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.347">3.347</td><td data-value="0.125">12.5%</td><td data-value="0.545">54.5%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_lower_rr: tp_rr_ratio=2.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.345">3.345</td><td data-value="0.123">12.3%</td><td data-value="0.554">55.4%</td><td data-value="240">240</td><td><span class="badge b-dom">discard-dom</span></td><td>m_more_touches: min_zone_touches=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/043860d">043860d</a></td><td data-value="3.298">3.298</td><td data-value="0.163">16.3%</td><td data-value="0.527">52.7%</td><td data-value="245">245</td><td><span class="badge b-keep">keep</span></td><td>m_fewer_touches: min_zone_touches=1</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/473ffe3">473ffe3</a></td><td data-value="3.27">3.270</td><td data-value="0.179">17.9%</td><td data-value="0.527">52.7%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/cbf3679">cbf3679</a></td><td data-value="3.259">3.259</td><td data-value="0.123">12.3%</td><td data-value="0.551">55.1%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_shorter_hold: max_hold_bars=20</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.259">3.259</td><td data-value="0.123">12.3%</td><td data-value="0.551">55.1%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/e1ce46b">e1ce46b</a></td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_slower_rsi: rsi_period=18</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/3af17eb">3af17eb</a></td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_trend_faster: h4_ema_period=50</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/4b707cf">4b707cf</a></td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_trend_slower: h4_ema_period=60</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/2f0d39a">2f0d39a</a></td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/01e761f">01e761f</a></td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-keep">keep</span></td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.247">3.247</td><td data-value="0.124">12.4%</td><td data-value="0.543">54.3%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_longer_hold: max_hold_bars=25</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/7bd607d">7bd607d</a></td><td data-value="3.226">3.226</td><td data-value="0.124">12.4%</td><td data-value="0.537">53.7%</td><td data-value="242">242</td><td><span class="badge b-keep">keep</span></td><td>m_more_touches: min_zone_touches=2</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/afd972b">afd972b</a></td><td data-value="3.226">3.226</td><td data-value="0.124">12.4%</td><td data-value="0.537">53.7%</td><td data-value="242">242</td><td><span class="badge b-keep">keep</span></td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.226">3.226</td><td data-value="0.124">12.4%</td><td data-value="0.537">53.7%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_faster_rsi: rsi_period=16</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.197">3.197</td><td data-value="0.144">14.4%</td><td data-value="0.53">53.0%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.197">3.197</td><td data-value="0.144">14.4%</td><td data-value="0.53">53.0%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.197">3.197</td><td data-value="0.144">14.4%</td><td data-value="0.53">53.0%</td><td data-value="247">247</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.5</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/dc20e25">dc20e25</a></td><td data-value="3.192">3.192</td><td data-value="0.152">15.2%</td><td data-value="0.547">54.7%</td><td data-value="245">245</td><td><span class="badge b-keep">keep</span></td><td>m_wider_sl: sl_atr_mult=3.0</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/9a96d45">9a96d45</a></td><td data-value="3.192">3.192</td><td data-value="0.152">15.2%</td><td data-value="0.547">54.7%</td><td data-value="245">245</td><td><span class="badge b-keep">keep</span></td><td>m_higher_rr: tp_rr_ratio=3.0</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/6c91796">6c91796</a></td><td data-value="3.192">3.192</td><td data-value="0.152">15.2%</td><td data-value="0.547">54.7%</td><td data-value="245">245</td><td><span class="badge b-keep">keep</span></td><td>m_tighter_pivot: pivot_lookback=5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.192">3.192</td><td data-value="0.152">15.2%</td><td data-value="0.547">54.7%</td><td data-value="245">245</td><td><span class="badge b-dom">discard-dom</span></td><td>m_faster_rsi: rsi_period=14</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/46233a0">46233a0</a></td><td data-value="3.189">3.189</td><td data-value="0.124">12.4%</td><td data-value="0.541">54.1%</td><td data-value="244">244</td><td><span class="badge b-keep">keep</span></td><td>m_shorter_hold: max_hold_bars=25</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/64bfab1">64bfab1</a></td><td data-value="3.189">3.189</td><td data-value="0.124">12.4%</td><td data-value="0.541">54.1%</td><td data-value="244">244</td><td><span class="badge b-keep">keep</span></td><td>m_zone_wider: zone_atr_mult=0.75</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.189">3.189</td><td data-value="0.124">12.4%</td><td data-value="0.541">54.1%</td><td data-value="244">244</td><td><span class="badge b-dom">discard-dom</span></td><td>m_fewer_touches: min_zone_touches=1</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.103">3.103</td><td data-value="0.139">13.9%</td><td data-value="0.554">55.4%</td><td data-value="408">408</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_off: no H4 trend filter</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.103">3.103</td><td data-value="0.139">13.9%</td><td data-value="0.554">55.4%</td><td data-value="408">408</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_off: no H4 trend filter</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.103">3.103</td><td data-value="0.139">13.9%</td><td data-value="0.554">55.4%</td><td data-value="408">408</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_off: no H4 trend filter</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.098">3.098</td><td data-value="0.148">14.8%</td><td data-value="0.535">53.5%</td><td data-value="243">243</td><td><span class="badge b-dom">discard-dom</span></td><td>m_farther_entry: entry_atr_mult=2.0</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.083">3.083</td><td data-value="0.181">18.1%</td><td data-value="0.525">52.5%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_more_touches: min_zone_touches=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/4be455e">4be455e</a></td><td data-value="3.078">3.078</td><td data-value="0.126">12.6%</td><td data-value="0.533">53.3%</td><td data-value="244">244</td><td><span class="badge b-keep">keep</span></td><td>m_farther_entry: entry_atr_mult=1.75</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/2898547">2898547</a></td><td data-value="3.078">3.078</td><td data-value="0.126">12.6%</td><td data-value="0.533">53.3%</td><td data-value="244">244</td><td><span class="badge b-keep">keep</span></td><td>m_lower_atr_floor: min_atr_pips=3</td></tr><tr data-status="keep"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/8ed7621">8ed7621</a></td><td data-value="3.078">3.078</td><td data-value="0.126">12.6%</td><td data-value="0.533">53.3%</td><td data-value="244">244</td><td><span class="badge b-keep">keep</span></td><td>m_higher_atr_floor: min_atr_pips=5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.078">3.078</td><td data-value="0.126">12.6%</td><td data-value="0.533">53.3%</td><td data-value="244">244</td><td><span class="badge b-dom">discard-dom</span></td><td>m_longer_hold: max_hold_bars=30</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="3.055">3.055</td><td data-value="0.13">13.0%</td><td data-value="0.533">53.3%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_higher_rr: tp_rr_ratio=3.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="2.97">2.970</td><td data-value="0.249">24.9%</td><td data-value="0.542">54.2%</td><td data-value="236">236</td><td><span class="badge b-dom">discard-dom</span></td><td>m_zone_tighter: zone_atr_mult=0.25</td></tr><tr data-status="discard-violates-constraints"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/d12a870">d12a870</a></td><td data-value="2.73">2.730</td><td data-value="0.703">70.3%</td><td data-value="0.541">54.1%</td><td data-value="1054">1054</td><td><span class="badge b-discard">discard-violates-constraints</span></td><td>v0.1: vectorized zone detection, processed 46/68 pairs in 30s (vs 12 in 188s)</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="2.71">2.710</td><td data-value="0.172">17.2%</td><td data-value="0.508">50.8%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="2.535">2.535</td><td data-value="0.176">17.6%</td><td data-value="0.554">55.4%</td><td data-value="242">242</td><td><span class="badge b-dom">discard-dom</span></td><td>m_wider_sl: sl_atr_mult=3.5</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="2.42">2.420</td><td data-value="0.177">17.7%</td><td data-value="0.512">51.2%</td><td data-value="404">404</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_off: no H4 trend filter</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="2.377">2.377</td><td data-value="0.162">16.2%</td><td data-value="0.5">50.0%</td><td data-value="404">404</td><td><span class="badge b-dom">discard-dom</span></td><td>m_trend_off: no H4 trend filter</td></tr><tr data-status="discard-dom"><td>—</td><td data-value="1.532">1.532</td><td data-value="0.231">23.1%</td><td data-value="0.469">46.9%</td><td data-value="245">245</td><td><span class="badge b-dom">discard-dom</span></td><td>m_tighter_sl: sl_atr_mult=2.0</td></tr><tr data-status="discard-violates-constraints"><td><a class="hash" href="https://github.com/Helena/autoresearch/commit/def2156">def2156</a></td><td data-value="0.786">0.786</td><td data-value="0.658">65.8%</td><td data-value="0.469">46.9%</td><td data-value="320">320</td><td><span class="badge b-discard">discard-violates-constraints</span></td><td>v0 baseline: RSI/MACD div at swing-pivot S/R, H4 EMA(50) trend, 2.5*ATR SL, 3:1 RR, 30-bar max hold</td></tr><tr data-status="discard"><td>—</td><td data-value="0.0">0.000</td><td data-value="0.0">0.0%</td><td data-value="0.0">0.0%</td><td data-value="0">0</td><td><span class="badge b-discard">discard</span></td><td>m_lower_atr_floor: min_atr_pips=3 (crash)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="git">Git Log</h2>
+<div class="panel">
+<table>
+<thead><tr><th>Hash</th><th>Date</th><th>Subject</th></tr></thead>
+<tbody>
+<tr><td><a class="hash mono" href="#">def2156</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:20:46</td><td>v0: baseline divergence-at-S/R strategy, all 68 OANDA pairs</td></tr><tr><td><a class="hash mono" href="#">d12a870</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:49:19</td><td>v0.1: speed up strategy with precomputed indicators + vectorized zone detection (6x speedup, 46 pairs processed)</td></tr><tr><td><a class="hash mono" href="#">915c121</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:57:07</td><td>v1: add per-pair signal cooldown (5 bars), passes all spec constraints: Sharpe 3.35, max_dd 24%, WR 55%, 242 trades</td></tr><tr><td><a class="hash mono" href="#">473ffe3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:58:20</td><td>v2: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">043860d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:59:17</td><td>v4: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">dc20e25</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:21</td><td>v6: m_wider_sl - sl_atr_mult=3.0</td></tr><tr><td><a class="hash mono" href="#">ba77749</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:50</td><td>v7: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">9a96d45</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:20</td><td>v8: m_higher_rr - tp_rr_ratio=3.0</td></tr><tr><td><a class="hash mono" href="#">00ecb2b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:45</td><td>v9: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">6c91796</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:13</td><td>v10: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">179c660</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:42</td><td>v11: m_slower_rsi - rsi_period=16</td></tr><tr><td><a class="hash mono" href="#">f894d28</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:04:39</td><td>v15: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">4be455e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:05:42</td><td>v17: m_farther_entry - entry_atr_mult=1.75</td></tr><tr><td><a class="hash mono" href="#">2898547</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:11</td><td>v18: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">8ed7621</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:41</td><td>v19: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">46233a0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:07:10</td><td>v20: m_shorter_hold - max_hold_bars=25</td></tr><tr><td><a class="hash mono" href="#">01066c5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:10</td><td>v22: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">64bfab1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:38</td><td>v23: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">7bd607d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:09:10</td><td>v24: m_more_touches - min_zone_touches=2</td></tr><tr><td><a class="hash mono" href="#">04d8492</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:03</td><td>v30: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">afd972b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:32</td><td>v31: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">e1ce46b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:59</td><td>v32: m_slower_rsi - rsi_period=18</td></tr><tr><td><a class="hash mono" href="#">3af17eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:26</td><td>v35: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">4b707cf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:53</td><td>v36: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2f0d39a</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:19</td><td>v39: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">01e761f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:47</td><td>v40: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">cbf3679</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:17:16</td><td>v41: m_shorter_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">68ad4ae</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:18:13</td><td>v43: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">75a2dd0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:19:38</td><td>v46: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">201c215</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:21:03</td><td>v49: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">db9648f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:01</td><td>v51: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">692d17e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:30</td><td>v52: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">7093501</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:57</td><td>v53: m_slower_rsi - rsi_period=20</td></tr><tr><td><a class="hash mono" href="#">f305852</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:22</td><td>v56: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">749e4eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:50</td><td>v57: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">861d7fd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:16</td><td>v60: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">6895d48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:43</td><td>v61: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">c1799be</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:10</td><td>v62: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">9febb7f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:38</td><td>v63: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">8faad48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:30</td><td>v70: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">5a39dd8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:57</td><td>v71: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">57c9532</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:23</td><td>v72: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">7455237</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:42</td><td>add README, index.html report, build_report.py generator</td></tr><tr><td><a class="hash mono" href="#">88dc48c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:51</td><td>v73: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">fcd7fff</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:00</td><td>regen index.html (loop at v73, best Sharpe 5.243)</td></tr><tr><td><a class="hash mono" href="#">8a60c39</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:17</td><td>add publish.sh: regen report + push</td></tr><tr><td><a class="hash mono" href="#">64fa02c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:33:49</td><td>v77: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">a251f56</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:34:18</td><td>v78: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">56d48fb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:35:45</td><td>v81: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">f672720</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:16</td><td>v82: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">3810308</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:44</td><td>v83: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">824dbb1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:37:12</td><td>v84: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">be93cf7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:03</td><td>v91: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">42136db</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:33</td><td>v92: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">bbbdee7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:58</td><td>v93: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">b7c3daf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:41:26</td><td>v94: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">99b020c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:24</td><td>v98: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">5b8ab34</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:52</td><td>v99: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">32e3563</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:47:58</td><td>v103: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">6ac1435</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:26</td><td>v104: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">fb26b78</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:54</td><td>v105: m_longer_hold - max_hold_bars=20</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="files">File Layout</h2>
+<div class="panel">
+<p>Repository at <code>/root/autoresearch/</code> on branch <code>autoresearch/jun11-divergence</code></p>
+<table>
+<thead><tr><th>File</th><th>Role</th><th>Editable?</th></tr></thead>
+<tbody>
+<tr><td class="mono">backtest.py</td><td>Fixed evaluation harness (analog of <code>prepare.py</code>)</td><td><span class="badge b-discard">never</span></td></tr>
+<tr><td class="mono">strategy.py</td><td>The ONLY file the loop mutates (analog of <code>train.py</code>)</td><td><span class="badge b-keep">yes</span></td></tr>
+<tr><td class="mono">run_loop.py</td><td>Autonomous experiment driver (analog of the agent)</td><td><span class="badge b-keep">yes</span></td></tr>
+<tr><td class="mono">results.tsv</td><td>Per-experiment log (commit, sharpe, dd, wr, n, status, desc)</td><td>appended only</td></tr>
+<tr><td class="mono">loop.log</td><td>Live loop stdout</td><td>appended only</td></tr>
+<tr><td class="mono">data/*.parquet</td><td>136 cached candles (68 pairs × D1 + H4, 41s pre-warm)</td><td>cache</td></tr>
+<tr><td class="mono">instruments.json</td><td>Cached OANDA instrument list (68 CURRENCY pairs)</td><td>cache</td></tr>
+<tr><td class="mono">program.md</td><td>Loop instructions & spec</td><td>frozen</td></tr>
+</tbody>
+</table>
+</div>
+
+<script>
+    function sortTable(tbl, col) {
+        const dir = tbl.dataset.dir === 'asc' ? 'desc' : 'asc';
+        tbl.dataset.dir = dir;
+        const rows = Array.from(tbl.querySelectorAll('tbody tr'));
+        rows.sort((a,b) => {
+            const av = a.cells[col].dataset.value ?? a.cells[col].textContent;
+            const bv = b.cells[col].dataset.value ?? b.cells[col].textContent;
+            const an = parseFloat(av); const bn = parseFloat(bv);
+            if (!isNaN(an) && !isNaN(bn)) return dir==='asc' ? an-bn : bn-an;
+            return dir==='asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+        });
+        rows.forEach(r => tbl.querySelector('tbody').appendChild(r));
+    }
+    function filterResults() {
+        const q = document.getElementById('q').value.toLowerCase();
+        const st = document.getElementById('st').value;
+        document.querySelectorAll('#results-table tbody tr').forEach(r => {
+            const match = (!q || r.textContent.toLowerCase().includes(q)) && (!st || r.dataset.status === st);
+            r.style.display = match ? '' : 'none';
+        });
+    }
+    </script>
+</body>
+</html>
