@@ -46,7 +46,7 @@
 </head>
 <body>
 <h1>📊 autoresearch — OANDA Divergence Strategy</h1>
-<p class="subtitle">Generated 2026-06-11 15:13:55 · Branch <code>autoresearch/jun11-divergence</code> · 0 experiments, 0 kept</p>
+<p class="subtitle">Generated 2026-06-13 02:40:17 · Branch <code>autoresearch/jun11-divergence</code> · 13 experiments, 0 kept</p>
 
 <div class="toc">
 <h3 style="margin-top:0">📑 Contents</h3>
@@ -65,7 +65,7 @@
 <h2 id="summary">Summary</h2>
 <div class="grid">
   <div class="card">
-    <div class="stat-value">0</div>
+    <div class="stat-value">13</div>
     <div class="stat-label">Total experiments</div>
   </div>
   <div class="card">
@@ -73,7 +73,7 @@
     <div class="stat-label">Kept</div>
   </div>
   <div class="card">
-    <div class="stat-value" style="color:var(--red)">0</div>
+    <div class="stat-value" style="color:var(--red)">13</div>
     <div class="stat-label">Discarded</div>
   </div>
   <div class="card">
@@ -99,7 +99,7 @@
   </div>
   <div class="card">
     <div class="stat-label">⏱ Loop uptime</div>
-    <div class="stat-value">238</div>
+    <div class="stat-value">14</div>
     <div class="stat-label">iterations logged</div>
   </div>
 </div>
@@ -108,7 +108,7 @@
 <div class="panel">
 <p>Snapshot of <code>strategy.py</code> as of report generation. Each iteration the loop mutates ONE of these values, runs the backtest, and reverts if the new config is dominated.</p>
 <div class="param-grid" style="margin-top:12px">
-  <div class="param"><span class="param-name">pivot_lookback</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">min_zone_touches</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">zone_atr_mult</span> <span class="param-value">0.5</span></div><div class="param"><span class="param-name">rsi_period</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">macd_fast</span> <span class="param-value">12</span></div><div class="param"><span class="param-name">macd_slow</span> <span class="param-value">26</span></div><div class="param"><span class="param-name">macd_signal</span> <span class="param-value">9</span></div><div class="param"><span class="param-name">div_lookback</span> <span class="param-value">3</span></div><div class="param"><span class="param-name">div_atr_dist_mult</span> <span class="param-value">0.0</span></div><div class="param"><span class="param-name">h4_ema_period</span> <span class="param-value">60</span></div><div class="param"><span class="param-name">use_trend_filter</span> <span class="param-value">True</span></div><div class="param"><span class="param-name">entry_atr_mult</span> <span class="param-value">2.0</span></div><div class="param"><span class="param-name">sl_atr_mult</span> <span class="param-value">3.0</span></div><div class="param"><span class="param-name">tp_rr_ratio</span> <span class="param-value">2.5</span></div><div class="param"><span class="param-name">max_hold_bars</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">min_atr_pips</span> <span class="param-value">7</span></div><div class="param"><span class="param-name">spread_atr_max</span> <span class="param-value">0.15</span></div><div class="param"><span class="param-name">max_open_per_pair</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">signal_cooldown_bars</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">use_trail</span> <span class="param-value">False</span></div><div class="param"><span class="param-name">trail_trigger_atr</span> <span class="param-value">1.5</span></div><div class="param"><span class="param-name">trail_distance_atr</span> <span class="param-value">1.5</span></div>
+  <div class="param"><span class="param-name">pivot_lookback</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">min_zone_touches</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">zone_atr_mult</span> <span class="param-value">0.5</span></div><div class="param"><span class="param-name">rsi_period</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">macd_fast</span> <span class="param-value">12</span></div><div class="param"><span class="param-name">macd_slow</span> <span class="param-value">26</span></div><div class="param"><span class="param-name">macd_signal</span> <span class="param-value">9</span></div><div class="param"><span class="param-name">div_lookback</span> <span class="param-value">3</span></div><div class="param"><span class="param-name">div_atr_dist_mult</span> <span class="param-value">0.0</span></div><div class="param"><span class="param-name">h4_ema_period</span> <span class="param-value">60</span></div><div class="param"><span class="param-name">use_trend_filter</span> <span class="param-value">True</span></div><div class="param"><span class="param-name">entry_atr_mult</span> <span class="param-value">2.0</span></div><div class="param"><span class="param-name">sl_atr_mult</span> <span class="param-value">3.0</span></div><div class="param"><span class="param-name">tp_rr_ratio</span> <span class="param-value">2.5</span></div><div class="param"><span class="param-name">max_hold_bars</span> <span class="param-value">20</span></div><div class="param"><span class="param-name">min_atr_pips</span> <span class="param-value">7</span></div><div class="param"><span class="param-name">spread_atr_max</span> <span class="param-value">0.15</span></div><div class="param"><span class="param-name">max_open_per_pair</span> <span class="param-value">1</span></div><div class="param"><span class="param-name">signal_cooldown_bars</span> <span class="param-value">5</span></div><div class="param"><span class="param-name">use_trail</span> <span class="param-value">False</span></div><div class="param"><span class="param-name">trail_trigger_atr</span> <span class="param-value">1.5</span></div><div class="param"><span class="param-name">trail_distance_atr</span> <span class="param-value">1.5</span></div><div class="param"><span class="param-name">risk_per_trade_pct</span> <span class="param-value">1.0</span></div><div class="param"><span class="param-name">max_concurrent_positions</span> <span class="param-value">6</span></div><div class="param"><span class="param-name">max_per_currency</span> <span class="param-value">2</span></div><div class="param"><span class="param-name">correlation_block</span> <span class="param-value">currency</span></div><div class="param"><span class="param-name">per_pair_dd_threshold</span> <span class="param-value">0.05</span></div><div class="param"><span class="param-name">per_pair_dd_window_days</span> <span class="param-value">30</span></div><div class="param"><span class="param-name">per_pair_dd_pause_days</span> <span class="param-value">14</span></div><div class="param"><span class="param-name">position_sizing_mode</span> <span class="param-value">fixed_pct</span></div><div class="param"><span class="param-name">pair_universe_size</span> <span class="param-value">49</span></div><div class="param"><span class="param-name">vix_proxy_skip_mult</span> <span class="param-value">0.0</span></div>
 </div>
 </div>
 
@@ -158,543 +158,43 @@
 <line x1="50" y1="50" x2="50" y2="250" stroke="#30363d"/>
 <line x1="50" y1="250.0" x2="850" y2="250.0" stroke="#21262d" stroke-dasharray="2,4"/>
 <text x="42" y="254.0" fill="#8b949e" font-size="11" text-anchor="end">0</text>
-<line x1="50" y1="215.3217276715274" x2="850" y2="215.3217276715274" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="42" y="219.3217276715274" fill="#8b949e" font-size="11" text-anchor="end">1</text>
-<line x1="50" y1="180.64345534305482" x2="850" y2="180.64345534305482" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="42" y="184.64345534305482" fill="#8b949e" font-size="11" text-anchor="end">2</text>
-<line x1="50" y1="145.96518301458224" x2="850" y2="145.96518301458224" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="42" y="149.96518301458224" fill="#8b949e" font-size="11" text-anchor="end">3</text>
-<line x1="50" y1="111.28691068610962" x2="850" y2="111.28691068610962" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="42" y="115.28691068610962" fill="#8b949e" font-size="11" text-anchor="end">4</text>
-<line x1="50" y1="76.60863835763706" x2="850" y2="76.60863835763706" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="42" y="80.60863835763706" fill="#8b949e" font-size="11" text-anchor="end">5</text>
 <text x="450.0" y="290" fill="#e6edf3" font-size="13" text-anchor="middle">Iteration</text>
 <text transform="rotate(-90,15,150.0)" x="15" y="150.0" fill="#e6edf3" font-size="13" text-anchor="middle">Sharpe</text>
-<circle cx="53.2" cy="147.0" r="3" fill="#d29922"><title>iter 1: Sharpe=2.97, DD=24.9%</title></circle>
-<line x1="53.2" y1="147.0" x2="56.5" y2="136.6" stroke="#3fb950" opacity="0.4"/>
-<circle cx="56.5" cy="136.6" r="3" fill="#3fb950"><title>iter 2: Sharpe=3.27, DD=17.9%</title></circle>
-<line x1="56.5" y1="136.6" x2="59.7" y2="143.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="59.7" cy="143.1" r="3" fill="#d29922"><title>iter 3: Sharpe=3.08, DD=18.1%</title></circle>
-<line x1="59.7" y1="143.1" x2="63.0" y2="135.6" stroke="#3fb950" opacity="0.4"/>
-<circle cx="63.0" cy="135.6" r="3" fill="#3fb950"><title>iter 4: Sharpe=3.30, DD=16.3%</title></circle>
-<line x1="63.0" y1="135.6" x2="66.2" y2="196.9" stroke="#d29922" opacity="0.4"/>
-<circle cx="66.2" cy="196.9" r="3" fill="#d29922"><title>iter 5: Sharpe=1.53, DD=23.1%</title></circle>
-<line x1="66.2" y1="196.9" x2="69.4" y2="139.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="69.4" cy="139.3" r="3" fill="#3fb950"><title>iter 6: Sharpe=3.19, DD=15.2%</title></circle>
-<line x1="69.4" y1="139.3" x2="72.7" y2="132.5" stroke="#3fb950" opacity="0.4"/>
-<circle cx="72.7" cy="132.5" r="3" fill="#3fb950"><title>iter 7: Sharpe=3.39, DD=16.0%</title></circle>
-<line x1="72.7" y1="132.5" x2="75.9" y2="139.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="75.9" cy="139.3" r="3" fill="#3fb950"><title>iter 8: Sharpe=3.19, DD=15.2%</title></circle>
-<line x1="75.9" y1="139.3" x2="79.1" y2="111.1" stroke="#3fb950" opacity="0.4"/>
-<circle cx="79.1" cy="111.1" r="3" fill="#3fb950"><title>iter 9: Sharpe=4.01, DD=23.2%</title></circle>
-<line x1="79.1" y1="111.1" x2="82.4" y2="139.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="82.4" cy="139.3" r="3" fill="#3fb950"><title>iter 10: Sharpe=3.19, DD=15.2%</title></circle>
-<line x1="82.4" y1="139.3" x2="85.6" y2="126.6" stroke="#3fb950" opacity="0.4"/>
-<circle cx="85.6" cy="126.6" r="3" fill="#3fb950"><title>iter 11: Sharpe=3.56, DD=15.2%</title></circle>
-<line x1="85.6" y1="126.6" x2="88.9" y2="139.3" stroke="#d29922" opacity="0.4"/>
-<circle cx="88.9" cy="139.3" r="3" fill="#d29922"><title>iter 12: Sharpe=3.19, DD=15.2%</title></circle>
-<line x1="88.9" y1="139.3" x2="92.1" y2="166.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="92.1" cy="166.1" r="3" fill="#d29922"><title>iter 13: Sharpe=2.42, DD=17.7%</title></circle>
-<line x1="92.1" y1="166.1" x2="95.3" y2="126.9" stroke="#d29922" opacity="0.4"/>
-<circle cx="95.3" cy="126.9" r="3" fill="#d29922"><title>iter 14: Sharpe=3.55, DD=15.2%</title></circle>
-<line x1="95.3" y1="126.9" x2="98.6" y2="126.6" stroke="#3fb950" opacity="0.4"/>
-<circle cx="98.6" cy="126.6" r="3" fill="#3fb950"><title>iter 15: Sharpe=3.56, DD=15.2%</title></circle>
-<line x1="98.6" y1="126.6" x2="101.8" y2="131.2" stroke="#d29922" opacity="0.4"/>
-<circle cx="101.8" cy="131.2" r="3" fill="#d29922"><title>iter 16: Sharpe=3.42, DD=17.3%</title></circle>
-<line x1="101.8" y1="131.2" x2="105.1" y2="143.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="105.1" cy="143.3" r="3" fill="#3fb950"><title>iter 17: Sharpe=3.08, DD=12.6%</title></circle>
-<line x1="105.1" y1="143.3" x2="108.3" y2="143.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="108.3" cy="143.3" r="3" fill="#3fb950"><title>iter 18: Sharpe=3.08, DD=12.6%</title></circle>
-<line x1="108.3" y1="143.3" x2="111.5" y2="143.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="111.5" cy="143.3" r="3" fill="#3fb950"><title>iter 19: Sharpe=3.08, DD=12.6%</title></circle>
-<line x1="111.5" y1="143.3" x2="114.8" y2="139.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="114.8" cy="139.4" r="3" fill="#3fb950"><title>iter 20: Sharpe=3.19, DD=12.4%</title></circle>
-<line x1="114.8" y1="139.4" x2="118.0" y2="143.3" stroke="#d29922" opacity="0.4"/>
-<circle cx="118.0" cy="143.3" r="3" fill="#d29922"><title>iter 21: Sharpe=3.08, DD=12.6%</title></circle>
-<line x1="118.0" y1="143.3" x2="121.3" y2="124.1" stroke="#3fb950" opacity="0.4"/>
-<circle cx="121.3" cy="124.1" r="3" fill="#3fb950"><title>iter 22: Sharpe=3.63, DD=12.5%</title></circle>
-<line x1="121.3" y1="124.1" x2="124.5" y2="139.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="124.5" cy="139.4" r="3" fill="#3fb950"><title>iter 23: Sharpe=3.19, DD=12.4%</title></circle>
-<line x1="124.5" y1="139.4" x2="127.7" y2="138.1" stroke="#3fb950" opacity="0.4"/>
-<circle cx="127.7" cy="138.1" r="3" fill="#3fb950"><title>iter 24: Sharpe=3.23, DD=12.4%</title></circle>
-<line x1="127.7" y1="138.1" x2="131.0" y2="139.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="131.0" cy="139.4" r="3" fill="#d29922"><title>iter 25: Sharpe=3.19, DD=12.4%</title></circle>
-<line x1="131.0" y1="139.4" x2="134.2" y2="156.0" stroke="#d29922" opacity="0.4"/>
-<circle cx="134.2" cy="156.0" r="3" fill="#d29922"><title>iter 26: Sharpe=2.71, DD=17.2%</title></circle>
-<line x1="134.2" y1="156.0" x2="137.4" y2="162.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="137.4" cy="162.1" r="3" fill="#d29922"><title>iter 27: Sharpe=2.54, DD=17.6%</title></circle>
-<line x1="137.4" y1="162.1" x2="140.7" y2="133.9" stroke="#d29922" opacity="0.4"/>
-<circle cx="140.7" cy="133.9" r="3" fill="#d29922"><title>iter 28: Sharpe=3.35, DD=12.5%</title></circle>
-<line x1="140.7" y1="133.9" x2="143.9" y2="144.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="143.9" cy="144.1" r="3" fill="#d29922"><title>iter 29: Sharpe=3.06, DD=13.0%</title></circle>
-<line x1="143.9" y1="144.1" x2="147.2" y2="102.5" stroke="#3fb950" opacity="0.4"/>
-<circle cx="147.2" cy="102.5" r="3" fill="#3fb950"><title>iter 30: Sharpe=4.25, DD=14.8%</title></circle>
-<line x1="147.2" y1="102.5" x2="150.4" y2="138.1" stroke="#3fb950" opacity="0.4"/>
-<circle cx="150.4" cy="138.1" r="3" fill="#3fb950"><title>iter 31: Sharpe=3.23, DD=12.4%</title></circle>
-<line x1="150.4" y1="138.1" x2="153.6" y2="137.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="153.6" cy="137.4" r="3" fill="#3fb950"><title>iter 32: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="153.6" y1="137.4" x2="156.9" y2="138.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="156.9" cy="138.1" r="3" fill="#d29922"><title>iter 33: Sharpe=3.23, DD=12.4%</title></circle>
-<line x1="156.9" y1="138.1" x2="160.1" y2="167.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="160.1" cy="167.6" r="3" fill="#d29922"><title>iter 34: Sharpe=2.38, DD=16.2%</title></circle>
-<line x1="160.1" y1="167.6" x2="163.4" y2="137.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="163.4" cy="137.4" r="3" fill="#3fb950"><title>iter 35: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="163.4" y1="137.4" x2="166.6" y2="137.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="166.6" cy="137.4" r="3" fill="#3fb950"><title>iter 36: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="166.6" y1="137.4" x2="169.8" y2="125.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="169.8" cy="125.7" r="3" fill="#d29922"><title>iter 37: Sharpe=3.58, DD=12.5%</title></circle>
-<line x1="169.8" y1="125.7" x2="173.1" y2="142.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="173.1" cy="142.6" r="3" fill="#d29922"><title>iter 38: Sharpe=3.10, DD=14.8%</title></circle>
-<line x1="173.1" y1="142.6" x2="176.3" y2="137.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="176.3" cy="137.4" r="3" fill="#3fb950"><title>iter 39: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="176.3" y1="137.4" x2="179.6" y2="137.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="179.6" cy="137.4" r="3" fill="#3fb950"><title>iter 40: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="179.6" y1="137.4" x2="182.8" y2="137.0" stroke="#3fb950" opacity="0.4"/>
-<circle cx="182.8" cy="137.0" r="3" fill="#3fb950"><title>iter 41: Sharpe=3.26, DD=12.3%</title></circle>
-<line x1="182.8" y1="137.0" x2="186.0" y2="137.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="186.0" cy="137.4" r="3" fill="#d29922"><title>iter 42: Sharpe=3.25, DD=12.4%</title></circle>
-<line x1="186.0" y1="137.4" x2="189.3" y2="127.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="189.3" cy="127.3" r="3" fill="#3fb950"><title>iter 43: Sharpe=3.54, DD=12.3%</title></circle>
-<line x1="189.3" y1="127.3" x2="192.5" y2="137.0" stroke="#d29922" opacity="0.4"/>
-<circle cx="192.5" cy="137.0" r="3" fill="#d29922"><title>iter 44: Sharpe=3.26, DD=12.3%</title></circle>
-<line x1="192.5" y1="137.0" x2="195.7" y2="134.0" stroke="#d29922" opacity="0.4"/>
-<circle cx="195.7" cy="134.0" r="3" fill="#d29922"><title>iter 45: Sharpe=3.35, DD=12.3%</title></circle>
-<line x1="195.7" y1="134.0" x2="199.0" y2="118.6" stroke="#3fb950" opacity="0.4"/>
-<circle cx="199.0" cy="118.6" r="3" fill="#3fb950"><title>iter 46: Sharpe=3.79, DD=12.3%</title></circle>
-<line x1="199.0" y1="118.6" x2="202.2" y2="126.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="202.2" cy="126.1" r="3" fill="#d29922"><title>iter 47: Sharpe=3.57, DD=14.4%</title></circle>
-<line x1="202.2" y1="126.1" x2="205.5" y2="132.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="205.5" cy="132.8" r="3" fill="#d29922"><title>iter 48: Sharpe=3.38, DD=16.0%</title></circle>
-<line x1="205.5" y1="132.8" x2="208.7" y2="111.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="208.7" cy="111.4" r="3" fill="#3fb950"><title>iter 49: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="208.7" y1="111.4" x2="211.9" y2="118.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="211.9" cy="118.6" r="3" fill="#d29922"><title>iter 50: Sharpe=3.79, DD=12.3%</title></circle>
-<line x1="211.9" y1="118.6" x2="215.2" y2="73.8" stroke="#3fb950" opacity="0.4"/>
-<circle cx="215.2" cy="73.8" r="3" fill="#3fb950"><title>iter 51: Sharpe=5.08, DD=16.6%</title></circle>
-<line x1="215.2" y1="73.8" x2="218.4" y2="111.4" stroke="#3fb950" opacity="0.4"/>
-<circle cx="218.4" cy="111.4" r="3" fill="#3fb950"><title>iter 52: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="218.4" y1="111.4" x2="221.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="221.7" cy="106.3" r="3" fill="#3fb950"><title>iter 53: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="221.7" y1="106.3" x2="224.9" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="224.9" cy="111.4" r="3" fill="#d29922"><title>iter 54: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="224.9" y1="111.4" x2="228.1" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="228.1" cy="142.4" r="3" fill="#d29922"><title>iter 55: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="228.1" y1="142.4" x2="231.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="231.4" cy="106.3" r="3" fill="#3fb950"><title>iter 56: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="231.4" y1="106.3" x2="234.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="234.6" cy="106.3" r="3" fill="#3fb950"><title>iter 57: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="234.6" y1="106.3" x2="237.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="237.9" cy="112.8" r="3" fill="#d29922"><title>iter 58: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="237.9" y1="112.8" x2="241.1" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="241.1" cy="113.6" r="3" fill="#d29922"><title>iter 59: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="241.1" y1="113.6" x2="244.3" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="244.3" cy="106.3" r="3" fill="#3fb950"><title>iter 60: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="244.3" y1="106.3" x2="247.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="247.6" cy="106.3" r="3" fill="#3fb950"><title>iter 61: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="247.6" y1="106.3" x2="250.8" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="250.8" cy="113.3" r="3" fill="#3fb950"><title>iter 62: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="250.8" y1="113.3" x2="254.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="254.0" cy="106.3" r="3" fill="#3fb950"><title>iter 63: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="254.0" y1="106.3" x2="257.3" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="257.3" cy="116.1" r="3" fill="#d29922"><title>iter 64: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="257.3" y1="116.1" x2="260.5" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="260.5" cy="116.7" r="3" fill="#d29922"><title>iter 65: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="260.5" y1="116.7" x2="263.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="263.8" cy="114.4" r="3" fill="#d29922"><title>iter 66: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="263.8" y1="114.4" x2="270.2" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="270.2" cy="139.1" r="3" fill="#d29922"><title>iter 68: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="270.2" y1="139.1" x2="273.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="273.5" cy="128.4" r="3" fill="#d29922"><title>iter 69: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="273.5" y1="128.4" x2="276.7" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="276.7" cy="96.9" r="3" fill="#3fb950"><title>iter 70: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="276.7" y1="96.9" x2="280.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="280.0" cy="106.3" r="3" fill="#3fb950"><title>iter 71: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="280.0" y1="106.3" x2="283.2" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="283.2" cy="68.2" r="3" fill="#3fb950"><title>iter 72: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="283.2" y1="68.2" x2="286.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="286.4" cy="106.3" r="3" fill="#3fb950"><title>iter 73: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="286.4" y1="106.3" x2="289.7" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="289.7" cy="109.6" r="3" fill="#d29922"><title>iter 74: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="289.7" y1="109.6" x2="292.9" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="292.9" cy="111.4" r="3" fill="#d29922"><title>iter 75: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="292.9" y1="111.4" x2="296.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="296.2" cy="142.4" r="3" fill="#d29922"><title>iter 76: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="296.2" y1="142.4" x2="299.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="299.4" cy="106.3" r="3" fill="#3fb950"><title>iter 77: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="299.4" y1="106.3" x2="302.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="302.6" cy="106.3" r="3" fill="#3fb950"><title>iter 78: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="302.6" y1="106.3" x2="305.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="305.9" cy="112.8" r="3" fill="#d29922"><title>iter 79: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="305.9" y1="112.8" x2="309.1" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="309.1" cy="113.6" r="3" fill="#d29922"><title>iter 80: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="309.1" y1="113.6" x2="312.3" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="312.3" cy="106.3" r="3" fill="#3fb950"><title>iter 81: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="312.3" y1="106.3" x2="315.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="315.6" cy="106.3" r="3" fill="#3fb950"><title>iter 82: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="315.6" y1="106.3" x2="318.8" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="318.8" cy="113.3" r="3" fill="#3fb950"><title>iter 83: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="318.8" y1="113.3" x2="322.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="322.1" cy="106.3" r="3" fill="#3fb950"><title>iter 84: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="322.1" y1="106.3" x2="325.3" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="325.3" cy="116.1" r="3" fill="#d29922"><title>iter 85: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="325.3" y1="116.1" x2="328.5" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="328.5" cy="116.7" r="3" fill="#d29922"><title>iter 86: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="328.5" y1="116.7" x2="331.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="331.8" cy="114.4" r="3" fill="#d29922"><title>iter 87: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="331.8" y1="114.4" x2="338.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="338.3" cy="139.1" r="3" fill="#d29922"><title>iter 89: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="338.3" y1="139.1" x2="341.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="341.5" cy="128.4" r="3" fill="#d29922"><title>iter 90: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="341.5" y1="128.4" x2="344.7" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="344.7" cy="96.9" r="3" fill="#3fb950"><title>iter 91: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="344.7" y1="96.9" x2="348.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="348.0" cy="106.3" r="3" fill="#3fb950"><title>iter 92: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="348.0" y1="106.3" x2="351.2" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="351.2" cy="68.2" r="3" fill="#3fb950"><title>iter 93: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="351.2" y1="68.2" x2="354.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="354.5" cy="106.3" r="3" fill="#3fb950"><title>iter 94: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="354.5" y1="106.3" x2="357.7" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="357.7" cy="109.6" r="3" fill="#d29922"><title>iter 95: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="357.7" y1="109.6" x2="360.9" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="360.9" cy="111.4" r="3" fill="#d29922"><title>iter 96: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="360.9" y1="111.4" x2="364.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="364.2" cy="142.4" r="3" fill="#d29922"><title>iter 97: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="364.2" y1="142.4" x2="367.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="367.4" cy="106.3" r="3" fill="#3fb950"><title>iter 98: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="367.4" y1="106.3" x2="370.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="370.6" cy="106.3" r="3" fill="#3fb950"><title>iter 99: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="370.6" y1="106.3" x2="373.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="373.9" cy="112.8" r="3" fill="#d29922"><title>iter 100: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="373.9" y1="112.8" x2="377.1" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="377.1" cy="113.6" r="3" fill="#d29922"><title>iter 101: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="377.1" y1="113.6" x2="380.4" y2="250.0" stroke="#f85149" opacity="0.4"/>
-<circle cx="380.4" cy="250.0" r="3" fill="#f85149"><title>iter 102: Sharpe=0.00, DD=0.0%</title></circle>
-<line x1="380.4" y1="250.0" x2="383.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="383.6" cy="106.3" r="3" fill="#3fb950"><title>iter 103: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="383.6" y1="106.3" x2="386.8" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="386.8" cy="113.3" r="3" fill="#3fb950"><title>iter 104: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="386.8" y1="113.3" x2="390.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="390.1" cy="106.3" r="3" fill="#3fb950"><title>iter 105: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="390.1" y1="106.3" x2="393.3" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="393.3" cy="116.1" r="3" fill="#d29922"><title>iter 106: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="393.3" y1="116.1" x2="396.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="396.6" cy="116.7" r="3" fill="#d29922"><title>iter 107: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="396.6" y1="116.7" x2="399.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="399.8" cy="114.4" r="3" fill="#d29922"><title>iter 108: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="399.8" y1="114.4" x2="406.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="406.3" cy="139.1" r="3" fill="#d29922"><title>iter 110: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="406.3" y1="139.1" x2="409.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="409.5" cy="128.4" r="3" fill="#d29922"><title>iter 111: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="409.5" y1="128.4" x2="412.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="412.8" cy="96.9" r="3" fill="#3fb950"><title>iter 112: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="412.8" y1="96.9" x2="416.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="416.0" cy="106.3" r="3" fill="#3fb950"><title>iter 113: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="416.0" y1="106.3" x2="419.2" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="419.2" cy="68.2" r="3" fill="#3fb950"><title>iter 114: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="419.2" y1="68.2" x2="422.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="422.5" cy="106.3" r="3" fill="#3fb950"><title>iter 115: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="422.5" y1="106.3" x2="425.7" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="425.7" cy="109.6" r="3" fill="#d29922"><title>iter 116: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="425.7" y1="109.6" x2="428.9" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="428.9" cy="111.4" r="3" fill="#d29922"><title>iter 117: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="428.9" y1="111.4" x2="432.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="432.2" cy="142.4" r="3" fill="#d29922"><title>iter 118: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="432.2" y1="142.4" x2="435.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="435.4" cy="106.3" r="3" fill="#3fb950"><title>iter 119: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="435.4" y1="106.3" x2="438.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="438.7" cy="106.3" r="3" fill="#3fb950"><title>iter 120: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="438.7" y1="106.3" x2="441.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="441.9" cy="112.8" r="3" fill="#d29922"><title>iter 121: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="441.9" y1="112.8" x2="445.1" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="445.1" cy="113.6" r="3" fill="#d29922"><title>iter 122: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="445.1" y1="113.6" x2="448.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="448.4" cy="106.3" r="3" fill="#3fb950"><title>iter 123: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="448.4" y1="106.3" x2="451.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="451.6" cy="106.3" r="3" fill="#3fb950"><title>iter 124: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="451.6" y1="106.3" x2="454.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="454.9" cy="113.3" r="3" fill="#3fb950"><title>iter 125: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="454.9" y1="113.3" x2="458.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="458.1" cy="106.3" r="3" fill="#3fb950"><title>iter 126: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="458.1" y1="106.3" x2="461.3" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="461.3" cy="116.1" r="3" fill="#d29922"><title>iter 127: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="461.3" y1="116.1" x2="464.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="464.6" cy="116.7" r="3" fill="#d29922"><title>iter 128: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="464.6" y1="116.7" x2="467.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="467.8" cy="114.4" r="3" fill="#d29922"><title>iter 129: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="467.8" y1="114.4" x2="474.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="474.3" cy="139.1" r="3" fill="#d29922"><title>iter 131: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="474.3" y1="139.1" x2="477.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="477.5" cy="128.4" r="3" fill="#d29922"><title>iter 132: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="477.5" y1="128.4" x2="480.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="480.8" cy="96.9" r="3" fill="#3fb950"><title>iter 133: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="480.8" y1="96.9" x2="484.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="484.0" cy="106.3" r="3" fill="#3fb950"><title>iter 134: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="484.0" y1="106.3" x2="487.2" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="487.2" cy="68.2" r="3" fill="#3fb950"><title>iter 135: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="487.2" y1="68.2" x2="490.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="490.5" cy="106.3" r="3" fill="#3fb950"><title>iter 136: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="490.5" y1="106.3" x2="493.7" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="493.7" cy="109.6" r="3" fill="#d29922"><title>iter 137: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="493.7" y1="109.6" x2="497.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="497.0" cy="111.4" r="3" fill="#d29922"><title>iter 138: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="497.0" y1="111.4" x2="500.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="500.2" cy="142.4" r="3" fill="#d29922"><title>iter 139: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="500.2" y1="142.4" x2="503.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="503.4" cy="106.3" r="3" fill="#3fb950"><title>iter 140: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="503.4" y1="106.3" x2="506.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="506.7" cy="106.3" r="3" fill="#3fb950"><title>iter 141: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="506.7" y1="106.3" x2="509.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="509.9" cy="112.8" r="3" fill="#d29922"><title>iter 142: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="509.9" y1="112.8" x2="513.2" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="513.2" cy="113.6" r="3" fill="#d29922"><title>iter 143: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="513.2" y1="113.6" x2="516.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="516.4" cy="106.3" r="3" fill="#3fb950"><title>iter 144: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="516.4" y1="106.3" x2="519.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="519.6" cy="106.3" r="3" fill="#3fb950"><title>iter 145: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="519.6" y1="106.3" x2="522.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="522.9" cy="113.3" r="3" fill="#3fb950"><title>iter 146: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="522.9" y1="113.3" x2="526.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="526.1" cy="106.3" r="3" fill="#3fb950"><title>iter 147: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="526.1" y1="106.3" x2="529.4" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="529.4" cy="116.1" r="3" fill="#d29922"><title>iter 148: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="529.4" y1="116.1" x2="532.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="532.6" cy="116.7" r="3" fill="#d29922"><title>iter 149: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="532.6" y1="116.7" x2="535.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="535.8" cy="114.4" r="3" fill="#d29922"><title>iter 150: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="535.8" y1="114.4" x2="542.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="542.3" cy="139.1" r="3" fill="#d29922"><title>iter 152: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="542.3" y1="139.1" x2="545.5" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="545.5" cy="128.4" r="3" fill="#d29922"><title>iter 153: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="545.5" y1="128.4" x2="548.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="548.8" cy="96.9" r="3" fill="#3fb950"><title>iter 154: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="548.8" y1="96.9" x2="552.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="552.0" cy="106.3" r="3" fill="#3fb950"><title>iter 155: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="552.0" y1="106.3" x2="555.3" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="555.3" cy="68.2" r="3" fill="#3fb950"><title>iter 156: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="555.3" y1="68.2" x2="558.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="558.5" cy="106.3" r="3" fill="#3fb950"><title>iter 157: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="558.5" y1="106.3" x2="561.7" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="561.7" cy="109.6" r="3" fill="#d29922"><title>iter 158: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="561.7" y1="109.6" x2="565.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="565.0" cy="111.4" r="3" fill="#d29922"><title>iter 159: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="565.0" y1="111.4" x2="568.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="568.2" cy="142.4" r="3" fill="#d29922"><title>iter 160: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="568.2" y1="142.4" x2="571.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="571.5" cy="106.3" r="3" fill="#3fb950"><title>iter 161: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="571.5" y1="106.3" x2="574.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="574.7" cy="106.3" r="3" fill="#3fb950"><title>iter 162: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="574.7" y1="106.3" x2="577.9" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="577.9" cy="112.8" r="3" fill="#d29922"><title>iter 163: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="577.9" y1="112.8" x2="581.2" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="581.2" cy="113.6" r="3" fill="#d29922"><title>iter 164: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="581.2" y1="113.6" x2="584.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="584.4" cy="106.3" r="3" fill="#3fb950"><title>iter 165: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="584.4" y1="106.3" x2="587.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="587.7" cy="106.3" r="3" fill="#3fb950"><title>iter 166: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="587.7" y1="106.3" x2="590.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="590.9" cy="113.3" r="3" fill="#3fb950"><title>iter 167: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="590.9" y1="113.3" x2="594.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="594.1" cy="106.3" r="3" fill="#3fb950"><title>iter 168: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="594.1" y1="106.3" x2="597.4" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="597.4" cy="116.1" r="3" fill="#d29922"><title>iter 169: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="597.4" y1="116.1" x2="600.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="600.6" cy="116.7" r="3" fill="#d29922"><title>iter 170: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="600.6" y1="116.7" x2="603.8" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="603.8" cy="114.4" r="3" fill="#d29922"><title>iter 171: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="603.8" y1="114.4" x2="610.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="610.3" cy="139.1" r="3" fill="#d29922"><title>iter 173: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="610.3" y1="139.1" x2="613.6" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="613.6" cy="128.4" r="3" fill="#d29922"><title>iter 174: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="613.6" y1="128.4" x2="616.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="616.8" cy="96.9" r="3" fill="#3fb950"><title>iter 175: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="616.8" y1="96.9" x2="620.0" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="620.0" cy="106.3" r="3" fill="#3fb950"><title>iter 176: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="620.0" y1="106.3" x2="623.3" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="623.3" cy="68.2" r="3" fill="#3fb950"><title>iter 177: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="623.3" y1="68.2" x2="626.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="626.5" cy="106.3" r="3" fill="#3fb950"><title>iter 178: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="626.5" y1="106.3" x2="629.8" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="629.8" cy="109.6" r="3" fill="#d29922"><title>iter 179: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="629.8" y1="109.6" x2="633.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="633.0" cy="111.4" r="3" fill="#d29922"><title>iter 180: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="633.0" y1="111.4" x2="636.2" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="636.2" cy="142.4" r="3" fill="#d29922"><title>iter 181: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="636.2" y1="142.4" x2="639.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="639.5" cy="106.3" r="3" fill="#3fb950"><title>iter 182: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="639.5" y1="106.3" x2="642.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="642.7" cy="106.3" r="3" fill="#3fb950"><title>iter 183: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="642.7" y1="106.3" x2="646.0" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="646.0" cy="112.8" r="3" fill="#d29922"><title>iter 184: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="646.0" y1="112.8" x2="649.2" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="649.2" cy="113.6" r="3" fill="#d29922"><title>iter 185: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="649.2" y1="113.6" x2="652.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="652.4" cy="106.3" r="3" fill="#3fb950"><title>iter 186: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="652.4" y1="106.3" x2="655.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="655.7" cy="106.3" r="3" fill="#3fb950"><title>iter 187: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="655.7" y1="106.3" x2="658.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="658.9" cy="113.3" r="3" fill="#3fb950"><title>iter 188: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="658.9" y1="113.3" x2="662.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="662.1" cy="106.3" r="3" fill="#3fb950"><title>iter 189: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="662.1" y1="106.3" x2="665.4" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="665.4" cy="116.1" r="3" fill="#d29922"><title>iter 190: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="665.4" y1="116.1" x2="668.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="668.6" cy="116.7" r="3" fill="#d29922"><title>iter 191: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="668.6" y1="116.7" x2="671.9" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="671.9" cy="114.4" r="3" fill="#d29922"><title>iter 192: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="671.9" y1="114.4" x2="678.3" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="678.3" cy="139.1" r="3" fill="#d29922"><title>iter 194: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="678.3" y1="139.1" x2="681.6" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="681.6" cy="128.4" r="3" fill="#d29922"><title>iter 195: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="681.6" y1="128.4" x2="684.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="684.8" cy="96.9" r="3" fill="#3fb950"><title>iter 196: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="684.8" y1="96.9" x2="688.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="688.1" cy="106.3" r="3" fill="#3fb950"><title>iter 197: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="688.1" y1="106.3" x2="691.3" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="691.3" cy="68.2" r="3" fill="#3fb950"><title>iter 198: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="691.3" y1="68.2" x2="694.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="694.5" cy="106.3" r="3" fill="#3fb950"><title>iter 199: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="694.5" y1="106.3" x2="697.8" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="697.8" cy="109.6" r="3" fill="#d29922"><title>iter 200: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="697.8" y1="109.6" x2="701.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="701.0" cy="111.4" r="3" fill="#d29922"><title>iter 201: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="701.0" y1="111.4" x2="704.3" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="704.3" cy="142.4" r="3" fill="#d29922"><title>iter 202: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="704.3" y1="142.4" x2="707.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="707.5" cy="106.3" r="3" fill="#3fb950"><title>iter 203: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="707.5" y1="106.3" x2="710.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="710.7" cy="106.3" r="3" fill="#3fb950"><title>iter 204: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="710.7" y1="106.3" x2="714.0" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="714.0" cy="112.8" r="3" fill="#d29922"><title>iter 205: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="714.0" y1="112.8" x2="717.2" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="717.2" cy="113.6" r="3" fill="#d29922"><title>iter 206: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="717.2" y1="113.6" x2="720.4" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="720.4" cy="106.3" r="3" fill="#3fb950"><title>iter 207: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="720.4" y1="106.3" x2="723.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="723.7" cy="106.3" r="3" fill="#3fb950"><title>iter 208: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="723.7" y1="106.3" x2="726.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="726.9" cy="113.3" r="3" fill="#3fb950"><title>iter 209: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="726.9" y1="113.3" x2="730.2" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="730.2" cy="106.3" r="3" fill="#3fb950"><title>iter 210: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="730.2" y1="106.3" x2="733.4" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="733.4" cy="116.1" r="3" fill="#d29922"><title>iter 211: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="733.4" y1="116.1" x2="736.6" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="736.6" cy="116.7" r="3" fill="#d29922"><title>iter 212: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="736.6" y1="116.7" x2="739.9" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="739.9" cy="114.4" r="3" fill="#d29922"><title>iter 213: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="739.9" y1="114.4" x2="746.4" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="746.4" cy="139.1" r="3" fill="#d29922"><title>iter 215: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="746.4" y1="139.1" x2="749.6" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="749.6" cy="128.4" r="3" fill="#d29922"><title>iter 216: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="749.6" y1="128.4" x2="752.8" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="752.8" cy="96.9" r="3" fill="#3fb950"><title>iter 217: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="752.8" y1="96.9" x2="756.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="756.1" cy="106.3" r="3" fill="#3fb950"><title>iter 218: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="756.1" y1="106.3" x2="759.3" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="759.3" cy="68.2" r="3" fill="#3fb950"><title>iter 219: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="759.3" y1="68.2" x2="762.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="762.6" cy="106.3" r="3" fill="#3fb950"><title>iter 220: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="762.6" y1="106.3" x2="765.8" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="765.8" cy="109.6" r="3" fill="#d29922"><title>iter 221: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="765.8" y1="109.6" x2="769.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="769.0" cy="111.4" r="3" fill="#d29922"><title>iter 222: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="769.0" y1="111.4" x2="772.3" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="772.3" cy="142.4" r="3" fill="#d29922"><title>iter 223: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="772.3" y1="142.4" x2="775.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="775.5" cy="106.3" r="3" fill="#3fb950"><title>iter 224: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="775.5" y1="106.3" x2="778.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="778.7" cy="106.3" r="3" fill="#3fb950"><title>iter 225: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="778.7" y1="106.3" x2="782.0" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="782.0" cy="112.8" r="3" fill="#d29922"><title>iter 226: Sharpe=3.96, DD=17.5%</title></circle>
-<line x1="782.0" y1="112.8" x2="785.2" y2="113.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="785.2" cy="113.6" r="3" fill="#d29922"><title>iter 227: Sharpe=3.93, DD=12.3%</title></circle>
-<line x1="785.2" y1="113.6" x2="788.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="788.5" cy="106.3" r="3" fill="#3fb950"><title>iter 228: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="788.5" y1="106.3" x2="791.7" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="791.7" cy="106.3" r="3" fill="#3fb950"><title>iter 229: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="791.7" y1="106.3" x2="794.9" y2="113.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="794.9" cy="113.3" r="3" fill="#3fb950"><title>iter 230: Sharpe=3.94, DD=11.0%</title></circle>
-<line x1="794.9" y1="113.3" x2="798.2" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="798.2" cy="106.3" r="3" fill="#3fb950"><title>iter 231: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="798.2" y1="106.3" x2="801.4" y2="116.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="801.4" cy="116.1" r="3" fill="#d29922"><title>iter 232: Sharpe=3.86, DD=17.4%</title></circle>
-<line x1="801.4" y1="116.1" x2="804.7" y2="116.7" stroke="#d29922" opacity="0.4"/>
-<circle cx="804.7" cy="116.7" r="3" fill="#d29922"><title>iter 233: Sharpe=3.84, DD=12.3%</title></circle>
-<line x1="804.7" y1="116.7" x2="807.9" y2="114.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="807.9" cy="114.4" r="3" fill="#d29922"><title>iter 234: Sharpe=3.91, DD=12.3%</title></circle>
-<line x1="807.9" y1="114.4" x2="814.4" y2="139.1" stroke="#d29922" opacity="0.4"/>
-<circle cx="814.4" cy="139.1" r="3" fill="#d29922"><title>iter 236: Sharpe=3.20, DD=14.4%</title></circle>
-<line x1="814.4" y1="139.1" x2="817.6" y2="128.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="817.6" cy="128.4" r="3" fill="#d29922"><title>iter 237: Sharpe=3.51, DD=16.4%</title></circle>
-<line x1="817.6" y1="128.4" x2="820.9" y2="96.9" stroke="#3fb950" opacity="0.4"/>
-<circle cx="820.9" cy="96.9" r="3" fill="#3fb950"><title>iter 238: Sharpe=4.42, DD=12.4%</title></circle>
-<line x1="820.9" y1="96.9" x2="824.1" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="824.1" cy="106.3" r="3" fill="#3fb950"><title>iter 239: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="824.1" y1="106.3" x2="827.3" y2="68.2" stroke="#3fb950" opacity="0.4"/>
-<circle cx="827.3" cy="68.2" r="3" fill="#3fb950"><title>iter 240: Sharpe=5.24, DD=16.6%</title></circle>
-<line x1="827.3" y1="68.2" x2="830.6" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="830.6" cy="106.3" r="3" fill="#3fb950"><title>iter 241: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="830.6" y1="106.3" x2="833.8" y2="109.6" stroke="#d29922" opacity="0.4"/>
-<circle cx="833.8" cy="109.6" r="3" fill="#d29922"><title>iter 242: Sharpe=4.05, DD=12.3%</title></circle>
-<line x1="833.8" y1="109.6" x2="837.0" y2="111.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="837.0" cy="111.4" r="3" fill="#d29922"><title>iter 243: Sharpe=4.00, DD=12.3%</title></circle>
-<line x1="837.0" y1="111.4" x2="840.3" y2="142.4" stroke="#d29922" opacity="0.4"/>
-<circle cx="840.3" cy="142.4" r="3" fill="#d29922"><title>iter 244: Sharpe=3.10, DD=13.9%</title></circle>
-<line x1="840.3" y1="142.4" x2="843.5" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="843.5" cy="106.3" r="3" fill="#3fb950"><title>iter 245: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="843.5" y1="106.3" x2="846.8" y2="106.3" stroke="#3fb950" opacity="0.4"/>
-<circle cx="846.8" cy="106.3" r="3" fill="#3fb950"><title>iter 246: Sharpe=4.14, DD=12.3%</title></circle>
-<line x1="846.8" y1="106.3" x2="850.0" y2="112.8" stroke="#d29922" opacity="0.4"/>
-<circle cx="850.0" cy="112.8" r="3" fill="#d29922"><title>iter 247: Sharpe=3.96, DD=17.5%</title></circle>
+<circle cx="103.3" cy="68.2" r="3" fill="#f85149"><title>iter 1: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="103.3" y1="68.2" x2="156.7" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="156.7" cy="68.2" r="3" fill="#f85149"><title>iter 2: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="156.7" y1="68.2" x2="210.0" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="210.0" cy="68.2" r="3" fill="#f85149"><title>iter 3: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="210.0" y1="68.2" x2="316.7" y2="149.1" stroke="#f85149" opacity="0.4"/>
+<circle cx="316.7" cy="149.1" r="3" fill="#f85149"><title>iter 5: Sharpe=0.45, DD=71.0%</title></circle>
+<line x1="316.7" y1="149.1" x2="370.0" y2="779.9" stroke="#f85149" opacity="0.4"/>
+<circle cx="370.0" cy="779.9" r="3" fill="#f85149"><title>iter 6: Sharpe=-2.38, DD=70.4%</title></circle>
+<line x1="370.0" y1="779.9" x2="423.3" y2="102.6" stroke="#f85149" opacity="0.4"/>
+<circle cx="423.3" cy="102.6" r="3" fill="#f85149"><title>iter 7: Sharpe=0.66, DD=68.4%</title></circle>
+<line x1="423.3" y1="102.6" x2="476.7" y2="360.5" stroke="#f85149" opacity="0.4"/>
+<circle cx="476.7" cy="360.5" r="3" fill="#f85149"><title>iter 8: Sharpe=-0.50, DD=70.2%</title></circle>
+<line x1="476.7" y1="360.5" x2="530.0" y2="2359.8" stroke="#f85149" opacity="0.4"/>
+<circle cx="530.0" cy="2359.8" r="3" fill="#f85149"><title>iter 9: Sharpe=-9.49, DD=27.2%</title></circle>
+<line x1="530.0" y1="2359.8" x2="583.3" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="583.3" cy="68.2" r="3" fill="#f85149"><title>iter 10: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="583.3" y1="68.2" x2="636.7" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="636.7" cy="68.2" r="3" fill="#f85149"><title>iter 11: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="636.7" y1="68.2" x2="690.0" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="690.0" cy="68.2" r="3" fill="#f85149"><title>iter 12: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="690.0" y1="68.2" x2="743.3" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="743.3" cy="68.2" r="3" fill="#f85149"><title>iter 13: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="743.3" y1="68.2" x2="796.7" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="796.7" cy="68.2" r="3" fill="#f85149"><title>iter 14: Sharpe=0.82, DD=69.0%</title></circle>
+<line x1="796.7" y1="68.2" x2="850.0" y2="68.2" stroke="#f85149" opacity="0.4"/>
+<circle cx="850.0" cy="68.2" r="3" fill="#f85149"><title>iter 15: Sharpe=0.82, DD=69.0%</title></circle>
 </svg></div>
 </div>
 
 <h2 id="equity">Equity Curves — Top Recommended Configs</h2>
-<p style="color:var(--muted)"><strong>Real portfolio equity (one position per pair, up to 49 pairs simultaneously) binned weekly.</strong> The val window is the last 20% of D1 history (~4 months: Feb 2026 – Jun 2026). All five configs show a similar pattern: a quick climb in February, a drawdown in March, then a recovery. <strong>Val-window returns: +224% to +295%.</strong> <strong>Portfolio peak-to-trough drawdown: 11.0% – 16.6%</strong> (well under the 30% cap). Per-trade max loss is 5% (position sizing is what bounds individual trades).</p>
+<div class="panel" style="border-color:var(--bad);background:rgba(255,80,80,0.05)"><p style="margin:0"><strong style="color:var(--bad)">⚠ No v2 strategies have passed the 30% portfolio-DD gate yet.</strong></p><p style="color:var(--muted);margin:6px 0 0 0">The current <code>results.tsv</code> has 0 keeps out of 13 experiments. The 5 "TOP_COMMITS" formerly hardcoded in <code>extract_equity_curves.py</code> (now archived in <code>equity_curves_v1_legacy.json</code>) used the v1 per-pair-DD metric and all show 60-75% chronological DD — they are not plotted here by design.</p><p style="color:var(--muted);margin:6px 0 0 0">Next action: the v2 loop has run 14 iterations (all SKIP). Single-axis mutations from the v246 baseline cannot bring DD from ~70% to under 30%. Continuing requires either compound (multi-axis) mutations, a fundamentally different strategy family, or relaxing the gate. See <code>AGENTS.md</code> for the current loop-status note.</p></div>
 <div class="panel">
-<div class="chart-container"><svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:monospace">
-<rect x="0" y="0" width="900" height="320" fill="#0d1117"/>
-<line x1="70" y1="280.0" x2="870" y2="280.0" stroke="#30363d" stroke-dasharray="2,4"/>
-<text x="62" y="284.0" fill="#8b949e" font-size="11" text-anchor="end">$10k</text>
-<line x1="70" y1="237.33333333333334" x2="870" y2="237.33333333333334" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="62" y="241.33333333333334" fill="#8b949e" font-size="11" text-anchor="end">$15k</text>
-<line x1="70" y1="194.66666666666669" x2="870" y2="194.66666666666669" stroke="#30363d" stroke-dasharray="2,4"/>
-<text x="62" y="198.66666666666669" fill="#8b949e" font-size="11" text-anchor="end">$20k</text>
-<line x1="70" y1="152.0" x2="870" y2="152.0" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="62" y="156.0" fill="#8b949e" font-size="11" text-anchor="end">$25k</text>
-<line x1="70" y1="109.33333333333334" x2="870" y2="109.33333333333334" stroke="#30363d" stroke-dasharray="2,4"/>
-<text x="62" y="113.33333333333334" fill="#8b949e" font-size="11" text-anchor="end">$30k</text>
-<line x1="70" y1="66.66666666666666" x2="870" y2="66.66666666666666" stroke="#21262d" stroke-dasharray="2,4"/>
-<text x="62" y="70.66666666666666" fill="#8b949e" font-size="11" text-anchor="end">$35k</text>
-<line x1="70" y1="24.0" x2="870" y2="24.0" stroke="#30363d" stroke-dasharray="2,4"/>
-<text x="62" y="28.0" fill="#8b949e" font-size="11" text-anchor="end">$40k</text>
-<line x1="70" y1="280.0" x2="870" y2="280.0" stroke="#8b949e" stroke-dasharray="6,3" opacity="0.7"/>
-<text x="865" y="276.0" fill="#8b949e" font-size="11" text-anchor="end">start $10k</text>
-<line x1="70" y1="280" x2="870" y2="280" stroke="#30363d"/>
-<line x1="70" y1="24" x2="70" y2="280" stroke="#30363d"/>
-<text transform="rotate(-90,16,152.0)" x="16" y="152.0" fill="#e6edf3" font-size="12" text-anchor="middle">Portfolio Equity ($)</text>
-<text x="470.0" y="16" fill="#e6edf3" font-size="12" text-anchor="middle">Portfolio equity (weekly) — top 5 configs over the validation window</text>
-<text x="70.0" y="308" fill="#8b949e" font-size="10" text-anchor="middle">2026-02-09</text>
-<text x="258.2352941176471" y="308" fill="#8b949e" font-size="10" text-anchor="middle">2026-03-09</text>
-<text x="446.4705882352941" y="308" fill="#8b949e" font-size="10" text-anchor="middle">2026-04-06</text>
-<text x="634.7058823529412" y="308" fill="#8b949e" font-size="10" text-anchor="middle">2026-05-04</text>
-<text x="870.0" y="308" fill="#8b949e" font-size="10" text-anchor="middle">2026-06-08</text>
-<path d="M70.0,165.3 L117.1,55.8 L164.1,33.8 L211.2,32.3 L258.2,44.7 L305.3,211.4 L352.4,186.9 L399.4,190.5 L446.5,194.0 L493.5,226.0 L540.6,253.6 L587.6,190.9 L634.7,125.3 L681.8,181.3 L728.8,45.9 L775.9,44.6 L822.9,41.8 L870.0,41.4" fill="none" stroke="#58a6ff" stroke-width="2.5" opacity="1.0" stroke-linejoin="round" stroke-linecap="round"><title>57c9532: m_wider_pivot: pivot_lookback=6 — final $37,965 (+62.0%)</title></path>
-<path d="M70.0,173.9 L117.1,69.2 L164.1,54.4 L211.2,52.4 L258.2,58.6 L305.3,218.1 L352.4,194.6 L399.4,198.0 L446.5,201.4 L493.5,232.0 L540.6,253.6 L587.6,198.4 L634.7,135.7 L681.8,189.2 L728.8,59.8 L775.9,58.5 L822.9,55.8 L870.0,55.4" fill="none" stroke="#3fb950" stroke-width="1.8" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"><title>db9648f: m_wider_pivot: pivot_lookback=6 — final $36,319 (+61.9%)</title></path>
-<path d="M70.0,130.2 L117.1,64.3 L164.1,46.0 L211.2,44.5 L258.2,56.5 L305.3,185.4 L352.4,194.4 L399.4,197.8 L446.5,201.2 L493.5,224.3 L540.6,266.7 L587.6,197.2 L634.7,129.6 L681.8,189.0 L728.8,57.7 L775.9,56.4 L822.9,53.7 L870.0,53.3" fill="none" stroke="#d29922" stroke-width="1.8" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"><title>8faad48: m_lower_rr: tp_rr_ratio=2.0 — final $36,567 (+32.7%)</title></path>
-<path d="M70.0,148.5 L117.1,78.5 L164.1,61.3 L211.2,62.6 L258.2,68.6 L305.3,74.5 L352.4,164.4 L399.4,168.4 L446.5,172.4 L493.5,216.9 L540.6,241.6 L587.6,184.3 L634.7,121.4 L681.8,158.0 L728.8,80.4 L775.9,79.2 L822.9,76.7 L870.0,76.3" fill="none" stroke="#f85149" stroke-width="1.8" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"><title>04d8492: m_wider_pivot: pivot_lookback=6 — final $33,870 (+33.3%)</title></path>
-<path d="M70.0,170.9 L117.1,114.8 L164.1,91.1 L211.2,89.5 L258.2,99.4 L305.3,215.2 L352.4,224.6 L399.4,227.4 L446.5,230.2 L493.5,241.5 L540.6,264.3 L587.6,224.0 L634.7,170.4 L681.8,221.9 L728.8,100.9 L775.9,99.8 L822.9,97.5 L870.0,97.2" fill="none" stroke="#a371f7" stroke-width="1.8" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"><title>c1799be: m_shorter_hold: max_hold_bars=15 — final $31,424 (+37.9%)</title></path>
-<rect x="70" y="307" width="10" height="10" fill="#58a6ff"/>
-<text x="84" y="316" fill="#e6edf3" font-size="10" font-weight="bold">57c9532 +62%</text>
-<rect x="174.0" y="307" width="10" height="10" fill="#3fb950"/>
-<text x="188.0" y="316" fill="#e6edf3" font-size="10" font-weight="normal">db9648f +62%</text>
-<rect x="278.0" y="307" width="10" height="10" fill="#d29922"/>
-<text x="292.0" y="316" fill="#e6edf3" font-size="10" font-weight="normal">8faad48 +33%</text>
-<rect x="382.0" y="307" width="10" height="10" fill="#f85149"/>
-<text x="396.0" y="316" fill="#e6edf3" font-size="10" font-weight="normal">04d8492 +33%</text>
-<rect x="486.0" y="307" width="10" height="10" fill="#a371f7"/>
-<text x="500.0" y="316" fill="#e6edf3" font-size="10" font-weight="normal">c1799be +38%</text>
-</svg></div>
-<table style="margin-top:16px"><thead><tr><th>Commit</th><th>Description</th><th onclick="sortTable(this.closest('table'),2)">Final Equity</th><th onclick="sortTable(this.closest('table'),3)">Val-Window Return</th><th onclick="sortTable(this.closest('table'),4)">Total Return*</th><th onclick="sortTable(this.closest('table'),5)">Val DD</th><th onclick="sortTable(this.closest('table'),6)">Loop DD</th><th onclick="sortTable(this.closest('table'),7)">Win Rate</th><th onclick="sortTable(this.closest('table'),8)">Trades</th><th onclick="sortTable(this.closest('table'),9)">Sharpe</th></tr></thead><tbody><tr><td class="mono">57c9532</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="37965">$37,965</td><td data-value="62.0" style="color:var(--green)">+62.0%</td><td data-value="279.6" style="color:var(--green);font-weight:bold">+279.6%*</td><td data-value="66.4">66.4%</td><td data-value="16.6">16.6%</td><td>61.6%</td><td>198</td><td>5.24</td></tr><tr><td class="mono">db9648f</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="36319">$36,319</td><td data-value="61.9" style="color:var(--green)">+61.9%</td><td data-value="263.2" style="color:var(--green);font-weight:bold">+263.2%*</td><td data-value="64.3">64.3%</td><td data-value="16.6">16.6%</td><td>61.3%</td><td>194</td><td>5.08</td></tr><tr><td class="mono">8faad48</td><td>m_lower_rr: tp_rr_ratio=2.0</td><td data-value="36567">$36,567</td><td data-value="32.7" style="color:var(--green)">+32.7%</td><td data-value="265.7" style="color:var(--green);font-weight:bold">+265.7%*</td><td data-value="69.3">69.3%</td><td data-value="12.4">12.4%</td><td>58.7%</td><td>247</td><td>4.42</td></tr><tr><td class="mono">04d8492</td><td>m_wider_pivot: pivot_lookback=6</td><td data-value="33870">$33,870</td><td data-value="33.3" style="color:var(--green)">+33.3%</td><td data-value="238.7" style="color:var(--green);font-weight:bold">+238.7%*</td><td data-value="59.3">59.3%</td><td data-value="14.8">14.8%</td><td>57.7%</td><td>194</td><td>4.25</td></tr><tr><td class="mono">c1799be</td><td>m_shorter_hold: max_hold_bars=15</td><td data-value="31424">$31,424</td><td data-value="37.9" style="color:var(--green)">+37.9%</td><td data-value="214.2" style="color:var(--green);font-weight:bold">+214.2%*</td><td data-value="63.4">63.4%</td><td data-value="11.0">11.0%</td><td>59.5%</td><td>247</td><td>3.94</td></tr></tbody></table><p style="color:var(--muted);font-size:11px;margin-top:6px">* Total Return is final equity / $10k starting capital (what you would have actually made). Val-Window Return is the equity gain over the validation window only (Feb-Jun 2026). Loop DD is the portfolio max DD computed by backtest.py from the full simulation ledger; Val DD is the peak-to-trough over the weekly-binned curve.</p>
+<div class="chart-container"><p>No equity data. Run <code>python3 extract_equity_curves.py</code> to populate.</p></div>
+
 </div>
 
 <h2 id="pareto">Pareto Frontier</h2>
@@ -727,7 +227,7 @@
 <tr><th>Commit</th><th onclick="sortTable(this.closest('table'),1)">Sharpe</th><th onclick="sortTable(this.closest('table'),2)">Max DD</th><th onclick="sortTable(this.closest('table'),3)">WR</th><th onclick="sortTable(this.closest('table'),4)">Trades</th><th>Status</th><th>Description</th></tr>
 </thead>
 <tbody>
-
+<tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_zone_wider: zone_atr_mult=0.75 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_more_touches: min_zone_touches=2 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_tighter_pivot: pivot_lookback=5 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_slower_rsi: rsi_period=22 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_faster_rsi: rsi_period=18 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_trend_off: no H4 trend filter (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_trend_faster: h4_ema_period=50 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.818">0.818</td><td data-value="0.69">69.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_trend_slower: h4_ema_period=70 (portfolio_max_dd 69.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.663">0.663</td><td data-value="0.684">68.4%</td><td data-value="0.286">28.6%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_lower_rr: tp_rr_ratio=2.0 (portfolio_max_dd 68.4% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="0.454">0.454</td><td data-value="0.71">71.0%</td><td data-value="0.262">26.2%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_tighter_sl: sl_atr_mult=2.5 (portfolio_max_dd 71.0% &gt;= 30%)</td></tr><tr data-status="discard"><td>—</td><td data-value="-0.497">-0.497</td><td data-value="0.702">70.2%</td><td data-value="0.214">21.4%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_higher_rr: tp_rr_ratio=3.0 (win_rate 21.40% &lt;= 25%)</td></tr><tr data-status="discard"><td>—</td><td data-value="-2.384">-2.384</td><td data-value="0.704">70.4%</td><td data-value="0.196">19.6%</td><td data-value="168">168</td><td><span class="badge b-discard">discard</span></td><td>m_wider_sl: sl_atr_mult=3.5 (win_rate 19.60% &lt;= 25%)</td></tr><tr data-status="discard"><td>—</td><td data-value="-9.492">-9.492</td><td data-value="0.272">27.2%</td><td data-value="0.167">16.7%</td><td data-value="84">84</td><td><span class="badge b-discard">discard</span></td><td>m_wider_pivot: pivot_lookback=7 (win_rate 16.70% &lt;= 25%)</td></tr>
 </tbody>
 </table>
 </div>
@@ -737,7 +237,7 @@
 <table>
 <thead><tr><th>Hash</th><th>Date</th><th>Subject</th></tr></thead>
 <tbody>
-<tr><td><a class="hash mono" href="#">def2156</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:20:46</td><td>v0: baseline divergence-at-S/R strategy, all 68 OANDA pairs</td></tr><tr><td><a class="hash mono" href="#">d12a870</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:49:19</td><td>v0.1: speed up strategy with precomputed indicators + vectorized zone detection (6x speedup, 46 pairs processed)</td></tr><tr><td><a class="hash mono" href="#">915c121</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:57:07</td><td>v1: add per-pair signal cooldown (5 bars), passes all spec constraints: Sharpe 3.35, max_dd 24%, WR 55%, 242 trades</td></tr><tr><td><a class="hash mono" href="#">473ffe3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:58:20</td><td>v2: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">043860d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:59:17</td><td>v4: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">dc20e25</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:21</td><td>v6: m_wider_sl - sl_atr_mult=3.0</td></tr><tr><td><a class="hash mono" href="#">ba77749</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:50</td><td>v7: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">9a96d45</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:20</td><td>v8: m_higher_rr - tp_rr_ratio=3.0</td></tr><tr><td><a class="hash mono" href="#">00ecb2b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:45</td><td>v9: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">6c91796</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:13</td><td>v10: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">179c660</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:42</td><td>v11: m_slower_rsi - rsi_period=16</td></tr><tr><td><a class="hash mono" href="#">f894d28</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:04:39</td><td>v15: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">4be455e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:05:42</td><td>v17: m_farther_entry - entry_atr_mult=1.75</td></tr><tr><td><a class="hash mono" href="#">2898547</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:11</td><td>v18: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">8ed7621</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:41</td><td>v19: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">46233a0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:07:10</td><td>v20: m_shorter_hold - max_hold_bars=25</td></tr><tr><td><a class="hash mono" href="#">01066c5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:10</td><td>v22: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">64bfab1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:38</td><td>v23: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">7bd607d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:09:10</td><td>v24: m_more_touches - min_zone_touches=2</td></tr><tr><td><a class="hash mono" href="#">04d8492</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:03</td><td>v30: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">afd972b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:32</td><td>v31: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">e1ce46b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:59</td><td>v32: m_slower_rsi - rsi_period=18</td></tr><tr><td><a class="hash mono" href="#">3af17eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:26</td><td>v35: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">4b707cf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:53</td><td>v36: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2f0d39a</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:19</td><td>v39: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">01e761f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:47</td><td>v40: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">cbf3679</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:17:16</td><td>v41: m_shorter_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">68ad4ae</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:18:13</td><td>v43: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">75a2dd0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:19:38</td><td>v46: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">201c215</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:21:03</td><td>v49: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">db9648f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:01</td><td>v51: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">692d17e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:30</td><td>v52: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">7093501</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:57</td><td>v53: m_slower_rsi - rsi_period=20</td></tr><tr><td><a class="hash mono" href="#">f305852</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:22</td><td>v56: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">749e4eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:50</td><td>v57: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">861d7fd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:16</td><td>v60: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">6895d48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:43</td><td>v61: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">c1799be</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:10</td><td>v62: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">9febb7f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:38</td><td>v63: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">8faad48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:30</td><td>v70: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">5a39dd8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:57</td><td>v71: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">57c9532</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:23</td><td>v72: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">7455237</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:42</td><td>add README, index.html report, build_report.py generator</td></tr><tr><td><a class="hash mono" href="#">88dc48c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:51</td><td>v73: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">fcd7fff</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:00</td><td>regen index.html (loop at v73, best Sharpe 5.243)</td></tr><tr><td><a class="hash mono" href="#">8a60c39</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:17</td><td>add publish.sh: regen report + push</td></tr><tr><td><a class="hash mono" href="#">64fa02c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:33:49</td><td>v77: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">a251f56</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:34:18</td><td>v78: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">56d48fb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:35:45</td><td>v81: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">f672720</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:16</td><td>v82: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">3810308</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:44</td><td>v83: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">824dbb1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:37:12</td><td>v84: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">be93cf7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:03</td><td>v91: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">42136db</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:33</td><td>v92: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">bbbdee7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:58</td><td>v93: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">b7c3daf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:41:26</td><td>v94: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">99b020c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:24</td><td>v98: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">5b8ab34</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:52</td><td>v99: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">32e3563</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:47:58</td><td>v103: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">6ac1435</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:26</td><td>v104: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">fb26b78</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:54</td><td>v105: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">ec2980c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:51:24</td><td>add equity curve extraction + render in report (top 5 configs, +79% to +150% returns on val window)</td></tr><tr><td><a class="hash mono" href="#">349aabf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:51:48</td><td>v112: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">aa1f6a8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:52:17</td><td>v113: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">56969f5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:52:42</td><td>v114: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">56fa800</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:53:09</td><td>v115: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">995ef60</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:55:06</td><td>v119: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">9f4eb26</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:55:35</td><td>v120: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">d8cfa48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:57:01</td><td>v123: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">97a9715</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:57:32</td><td>v124: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">f0aea4f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:58:01</td><td>v125: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">1945ac6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:58:30</td><td>v126: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">19dffae</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:01:31</td><td>v133: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">a8a4499</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:01:59</td><td>v134: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">c17264f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:02:25</td><td>v135: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">662c3b7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:02:52</td><td>v136: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">275e1e0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:04:48</td><td>v140: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">483663b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:05:18</td><td>v141: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">f2832c4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:06:43</td><td>v144: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">36480dd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:07:12</td><td>v145: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">7b71295</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:07:41</td><td>v146: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">79c5a72</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:08:09</td><td>v147: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">68b7e87</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:05</td><td>v154: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">f977cd5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:34</td><td>v155: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">a0abbf4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:59</td><td>v156: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">b8c17cf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:12:28</td><td>v157: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">0228ec6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:14:25</td><td>v161: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">1a6e4e1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:14:53</td><td>v162: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2a66523</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:16:23</td><td>v165: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">56d906c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:16:51</td><td>v166: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">5004722</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:17:20</td><td>v167: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">0f3a518</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:17:49</td><td>v168: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">ff3cbd3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:20:51</td><td>v175: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">72a66d4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:21:22</td><td>v176: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">16f7ef1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:21:49</td><td>v177: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">6c7ae25</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:22:19</td><td>v178: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">a921bb5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:24:16</td><td>v182: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">9198b32</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:24:46</td><td>v183: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">d817bf2</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:26:14</td><td>v186: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">0208f8d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:26:42</td><td>v187: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">876c3a3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:27:11</td><td>v188: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">2ccdb90</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:27:19</td><td>fix equity curve chart: use real portfolio equity from backtest ledger</td></tr><tr><td><a class="hash mono" href="#">ef2ba61</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:30:31</td><td>v196: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">e442f6b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:00</td><td>v197: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">55a0d8d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:30</td><td>v198: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">51dfcca</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:58</td><td>v199: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">e0bdaf1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:33:59</td><td>v203: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">eae8b09</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:34:28</td><td>v204: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2e2795f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:35:55</td><td>v207: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">6173eb8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:36:27</td><td>v208: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">9434f0f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:36:56</td><td>v209: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">e908687</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:37:16</td><td>fix equity curve: bin by week, use time-ordered portfolio equity</td></tr><tr><td><a class="hash mono" href="#">6376789</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:40:36</td><td>v217: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">53d6fa4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:41:07</td><td>v218: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">557b129</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:41:33</td><td>v219: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">3d350c0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:42:01</td><td>v220: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">eb4b3d2</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:43:59</td><td>v224: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">1aef249</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:44:30</td><td>v225: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">72cbc76</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:00</td><td>v228: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">6b540e8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:29</td><td>v229: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">60e261a</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:57</td><td>v230: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">fd820cc</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:47:23</td><td>v231: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">21d72a6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:50:14</td><td>v238: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">66f9ebf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:50:42</td><td>v239: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">e366dbd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:51:08</td><td>v240: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">9394bf9</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:51:35</td><td>v241: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">8944271</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:53:31</td><td>v245: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">80e8173</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:54:00</td><td>v246: m_trend_slower - h4_ema_period=60</td></tr>
+<tr><td><a class="hash mono" href="#">def2156</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:20:46</td><td>v0: baseline divergence-at-S/R strategy, all 68 OANDA pairs</td></tr><tr><td><a class="hash mono" href="#">d12a870</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:49:19</td><td>v0.1: speed up strategy with precomputed indicators + vectorized zone detection (6x speedup, 46 pairs processed)</td></tr><tr><td><a class="hash mono" href="#">915c121</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:57:07</td><td>v1: add per-pair signal cooldown (5 bars), passes all spec constraints: Sharpe 3.35, max_dd 24%, WR 55%, 242 trades</td></tr><tr><td><a class="hash mono" href="#">473ffe3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:58:20</td><td>v2: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">043860d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 12:59:17</td><td>v4: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">dc20e25</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:21</td><td>v6: m_wider_sl - sl_atr_mult=3.0</td></tr><tr><td><a class="hash mono" href="#">ba77749</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:00:50</td><td>v7: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">9a96d45</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:20</td><td>v8: m_higher_rr - tp_rr_ratio=3.0</td></tr><tr><td><a class="hash mono" href="#">00ecb2b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:01:45</td><td>v9: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">6c91796</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:13</td><td>v10: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">179c660</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:02:42</td><td>v11: m_slower_rsi - rsi_period=16</td></tr><tr><td><a class="hash mono" href="#">f894d28</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:04:39</td><td>v15: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">4be455e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:05:42</td><td>v17: m_farther_entry - entry_atr_mult=1.75</td></tr><tr><td><a class="hash mono" href="#">2898547</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:11</td><td>v18: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">8ed7621</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:06:41</td><td>v19: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">46233a0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:07:10</td><td>v20: m_shorter_hold - max_hold_bars=25</td></tr><tr><td><a class="hash mono" href="#">01066c5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:10</td><td>v22: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">64bfab1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:08:38</td><td>v23: m_zone_wider - zone_atr_mult=0.75</td></tr><tr><td><a class="hash mono" href="#">7bd607d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:09:10</td><td>v24: m_more_touches - min_zone_touches=2</td></tr><tr><td><a class="hash mono" href="#">04d8492</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:03</td><td>v30: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">afd972b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:32</td><td>v31: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">e1ce46b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:12:59</td><td>v32: m_slower_rsi - rsi_period=18</td></tr><tr><td><a class="hash mono" href="#">3af17eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:26</td><td>v35: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">4b707cf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:14:53</td><td>v36: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2f0d39a</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:19</td><td>v39: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">01e761f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:16:47</td><td>v40: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">cbf3679</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:17:16</td><td>v41: m_shorter_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">68ad4ae</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:18:13</td><td>v43: m_zone_tighter - zone_atr_mult=0.5</td></tr><tr><td><a class="hash mono" href="#">75a2dd0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:19:38</td><td>v46: m_fewer_touches - min_zone_touches=1</td></tr><tr><td><a class="hash mono" href="#">201c215</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:21:03</td><td>v49: m_lower_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">db9648f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:01</td><td>v51: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">692d17e</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:30</td><td>v52: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">7093501</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:22:57</td><td>v53: m_slower_rsi - rsi_period=20</td></tr><tr><td><a class="hash mono" href="#">f305852</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:22</td><td>v56: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">749e4eb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:24:50</td><td>v57: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">861d7fd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:16</td><td>v60: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">6895d48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:26:43</td><td>v61: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">c1799be</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:10</td><td>v62: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">9febb7f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:27:38</td><td>v63: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">8faad48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:30</td><td>v70: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">5a39dd8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:30:57</td><td>v71: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">57c9532</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:23</td><td>v72: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">7455237</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:42</td><td>add README, index.html report, build_report.py generator</td></tr><tr><td><a class="hash mono" href="#">88dc48c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:31:51</td><td>v73: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">fcd7fff</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:00</td><td>regen index.html (loop at v73, best Sharpe 5.243)</td></tr><tr><td><a class="hash mono" href="#">8a60c39</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:32:17</td><td>add publish.sh: regen report + push</td></tr><tr><td><a class="hash mono" href="#">64fa02c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:33:49</td><td>v77: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">a251f56</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:34:18</td><td>v78: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">56d48fb</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:35:45</td><td>v81: m_lower_atr_floor - min_atr_pips=3</td></tr><tr><td><a class="hash mono" href="#">f672720</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:16</td><td>v82: m_higher_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">3810308</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:36:44</td><td>v83: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">824dbb1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:37:12</td><td>v84: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">be93cf7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:03</td><td>v91: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">42136db</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:33</td><td>v92: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">bbbdee7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:40:58</td><td>v93: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">b7c3daf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:41:26</td><td>v94: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">99b020c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:24</td><td>v98: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">5b8ab34</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:43:52</td><td>v99: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">32e3563</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:47:58</td><td>v103: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">6ac1435</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:26</td><td>v104: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">fb26b78</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:48:54</td><td>v105: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">ec2980c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:51:24</td><td>add equity curve extraction + render in report (top 5 configs, +79% to +150% returns on val window)</td></tr><tr><td><a class="hash mono" href="#">349aabf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:51:48</td><td>v112: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">aa1f6a8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:52:17</td><td>v113: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">56969f5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:52:42</td><td>v114: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">56fa800</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:53:09</td><td>v115: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">995ef60</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:55:06</td><td>v119: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">9f4eb26</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:55:35</td><td>v120: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">d8cfa48</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:57:01</td><td>v123: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">97a9715</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:57:32</td><td>v124: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">f0aea4f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:58:01</td><td>v125: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">1945ac6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 13:58:30</td><td>v126: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">19dffae</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:01:31</td><td>v133: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">a8a4499</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:01:59</td><td>v134: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">c17264f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:02:25</td><td>v135: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">662c3b7</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:02:52</td><td>v136: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">275e1e0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:04:48</td><td>v140: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">483663b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:05:18</td><td>v141: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">f2832c4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:06:43</td><td>v144: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">36480dd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:07:12</td><td>v145: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">7b71295</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:07:41</td><td>v146: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">79c5a72</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:08:09</td><td>v147: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">68b7e87</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:05</td><td>v154: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">f977cd5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:34</td><td>v155: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">a0abbf4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:11:59</td><td>v156: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">b8c17cf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:12:28</td><td>v157: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">0228ec6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:14:25</td><td>v161: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">1a6e4e1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:14:53</td><td>v162: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2a66523</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:16:23</td><td>v165: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">56d906c</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:16:51</td><td>v166: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">5004722</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:17:20</td><td>v167: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">0f3a518</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:17:49</td><td>v168: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">ff3cbd3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:20:51</td><td>v175: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">72a66d4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:21:22</td><td>v176: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">16f7ef1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:21:49</td><td>v177: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">6c7ae25</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:22:19</td><td>v178: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">a921bb5</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:24:16</td><td>v182: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">9198b32</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:24:46</td><td>v183: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">d817bf2</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:26:14</td><td>v186: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">0208f8d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:26:42</td><td>v187: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">876c3a3</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:27:11</td><td>v188: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">2ccdb90</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:27:19</td><td>fix equity curve chart: use real portfolio equity from backtest ledger</td></tr><tr><td><a class="hash mono" href="#">ef2ba61</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:30:31</td><td>v196: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">e442f6b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:00</td><td>v197: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">55a0d8d</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:30</td><td>v198: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">51dfcca</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:31:58</td><td>v199: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">e0bdaf1</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:33:59</td><td>v203: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">eae8b09</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:34:28</td><td>v204: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">2e2795f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:35:55</td><td>v207: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">6173eb8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:36:27</td><td>v208: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">9434f0f</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:36:56</td><td>v209: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">e908687</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:37:16</td><td>fix equity curve: bin by week, use time-ordered portfolio equity</td></tr><tr><td><a class="hash mono" href="#">6376789</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:40:36</td><td>v217: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">53d6fa4</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:41:07</td><td>v218: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">557b129</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:41:33</td><td>v219: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">3d350c0</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:42:01</td><td>v220: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">eb4b3d2</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:43:59</td><td>v224: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">1aef249</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:44:30</td><td>v225: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">72cbc76</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:00</td><td>v228: m_lower_atr_floor - min_atr_pips=5</td></tr><tr><td><a class="hash mono" href="#">6b540e8</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:29</td><td>v229: m_higher_atr_floor - min_atr_pips=7</td></tr><tr><td><a class="hash mono" href="#">60e261a</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:46:57</td><td>v230: m_shorter_hold - max_hold_bars=15</td></tr><tr><td><a class="hash mono" href="#">fd820cc</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:47:23</td><td>v231: m_longer_hold - max_hold_bars=20</td></tr><tr><td><a class="hash mono" href="#">21d72a6</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:50:14</td><td>v238: m_lower_rr - tp_rr_ratio=2.0</td></tr><tr><td><a class="hash mono" href="#">66f9ebf</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:50:42</td><td>v239: m_higher_rr - tp_rr_ratio=2.5</td></tr><tr><td><a class="hash mono" href="#">e366dbd</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:51:08</td><td>v240: m_wider_pivot - pivot_lookback=6</td></tr><tr><td><a class="hash mono" href="#">9394bf9</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:51:35</td><td>v241: m_tighter_pivot - pivot_lookback=5</td></tr><tr><td><a class="hash mono" href="#">8944271</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:53:31</td><td>v245: m_trend_faster - h4_ema_period=50</td></tr><tr><td><a class="hash mono" href="#">80e8173</a></td><td class="mono" style="color:var(--muted)">2026-06-11 14:54:00</td><td>v246: m_trend_slower - h4_ema_period=60</td></tr><tr><td><a class="hash mono" href="#">bd5f29b</a></td><td class="mono" style="color:var(--muted)">2026-06-11 15:29:22</td><td>fix max_dd: use chronological portfolio peak-to-trough, not (pair, time) order</td></tr><tr><td><a class="hash mono" href="#">798e67e</a></td><td class="mono" style="color:var(--muted)">2026-06-12 02:03:13</td><td>Add DOX AGENTS.md (agent contract for this project)</td></tr><tr><td><a class="hash mono" href="#">f407491</a></td><td class="mono" style="color:var(--muted)">2026-06-12 02:04:12</td><td>Restore equity_curves.json and re-apply v246 strategy.py</td></tr><tr><td><a class="hash mono" href="#">d089370</a></td><td class="mono" style="color:var(--muted)">2026-06-13 02:37:57</td><td>v2 stop-gap: archive v1 equity curves, fix TOP_COMMITS derivation, expose risk-policy defaults</td></tr>
 </tbody>
 </table>
 </div>
